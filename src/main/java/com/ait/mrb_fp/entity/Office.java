@@ -11,11 +11,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"employees", "meetingRooms", "queues", "seats"})
+@EqualsAndHashCode(exclude = {"employees", "meetingRooms", "queues", "seats"})
 public class Office {
 
     @Id
     @Column(length = 10)
-    private String officeId; // Custom ID like "OFC001"
+    private String officeId;
 
     @Column(length = 100, nullable = false)
     private String officeName;
@@ -29,6 +31,15 @@ public class Office {
     @Column(nullable = false)
     private boolean isActive = true;
 
-    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
+
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MeetingRoom> meetingRooms;
+
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Queue> queues;
+
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seats;
 }

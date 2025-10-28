@@ -7,21 +7,24 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "meeting_booking")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"room", "bookedBy"})
+@EqualsAndHashCode(exclude = {"room", "bookedBy"})
 public class MeetingBooking {
 
     @Id
     @Column(length = 10)
     private String meetingId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false)
     private MeetingRoom room;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booked_by_employee_id", nullable = false)
     private Employee bookedBy;
 
@@ -39,7 +42,7 @@ public class MeetingBooking {
     private String purpose;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private MeetingStatus status;
 
     @Column(nullable = false)

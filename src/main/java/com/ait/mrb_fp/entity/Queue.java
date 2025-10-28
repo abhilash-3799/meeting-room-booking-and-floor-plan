@@ -7,17 +7,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "queue")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"office", "seats"})
+@EqualsAndHashCode(exclude = {"office", "seats"})
 public class Queue {
 
     @Id
     @Column(length = 10)
     private String queueId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
@@ -33,6 +36,6 @@ public class Queue {
     @Column(nullable = false)
     private boolean isActive = true;
 
-    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats;
 }

@@ -2,10 +2,12 @@ package com.ait.mrb_fp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "shift")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,10 +21,10 @@ public class Shift {
     private String shiftName;
 
     @Column(nullable = false)
-    private java.time.LocalTime startTime;
+    private LocalTime startTime;
 
     @Column(nullable = false)
-    private java.time.LocalTime endTime;
+    private LocalTime endTime;
 
     @Column(length = 255)
     private String description;

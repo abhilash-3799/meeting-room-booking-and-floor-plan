@@ -6,21 +6,24 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "seat_booking")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"seat", "employee"})
+@EqualsAndHashCode(exclude = {"seat", "employee"})
 public class SeatBooking {
 
     @Id
     @Column(length = 10)
     private String allocationId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id", nullable = false)
     private Seat seat;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
@@ -28,7 +31,7 @@ public class SeatBooking {
     private LocalDateTime allocationDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private BookingStatus status;
 
     @Column(nullable = false)

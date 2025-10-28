@@ -6,17 +6,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "meeting_room")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"office", "bookings"})
+@EqualsAndHashCode(exclude = {"office", "bookings"})
 public class MeetingRoom {
 
     @Id
     @Column(length = 10)
     private String roomId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
@@ -27,19 +30,14 @@ public class MeetingRoom {
     private int capacity;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private RoomType roomType;
 
     @Column(nullable = false)
     private boolean isActive = true;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MeetingBooking> bookings;
-
-    // ✅ Add this field if missing
-    @Column(length = 10, nullable = false)
-    private String officeId;
-
 
     public enum RoomType {
         BOARD_ROOM, CONFERENCE_ROOM, CABIN

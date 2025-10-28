@@ -5,17 +5,20 @@ import lombok.*;
 
 @Entity
 @Table(name = "seat")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"office", "queue", "assignedTeam"})
+@EqualsAndHashCode(exclude = {"office", "queue", "assignedTeam"})
 public class Seat {
 
     @Id
     @Column(length = 10)
     private String seatId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
@@ -23,19 +26,19 @@ public class Seat {
     private String seatNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 15)
     private SeatStatus seatStatus = SeatStatus.UNALLOCATED;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_team_id")
     private Team assignedTeam;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "queue_id")
     private Queue queue;
 
     @Column(nullable = false)
-    private boolean isAvailable;
+    private boolean isAvailable = true;
 
     @Column(nullable = false)
     private boolean isActive = true;

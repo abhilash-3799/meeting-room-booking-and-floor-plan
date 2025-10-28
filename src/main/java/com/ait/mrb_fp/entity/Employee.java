@@ -5,10 +5,13 @@ import lombok.*;
 
 @Entity
 @Table(name = "employee")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"team", "office", "shift"})
+@EqualsAndHashCode(exclude = {"team", "office", "shift"})
 public class Employee {
 
     @Id
@@ -27,18 +30,20 @@ public class Employee {
     @Column(length = 150, nullable = false)
     private String email;
 
-    // ✅ Many employees belong to one team
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    // ✅ Many employees belong to one office
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shift_id")
+    private Shift shift;
+
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private EmployeeType employeeType;
 
     @Column(nullable = false)

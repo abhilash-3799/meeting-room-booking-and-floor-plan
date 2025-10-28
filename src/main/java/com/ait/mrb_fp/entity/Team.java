@@ -6,10 +6,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "team")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "employees")
+@EqualsAndHashCode(exclude = "employees")
 public class Team {
 
     @Id
@@ -25,6 +28,6 @@ public class Team {
     @Column(nullable = false)
     private boolean isActive = true;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
 }

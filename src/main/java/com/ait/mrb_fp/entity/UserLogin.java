@@ -5,17 +5,20 @@ import lombok.*;
 
 @Entity
 @Table(name = "user_login")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "employee")
+@EqualsAndHashCode(exclude = "employee")
 public class UserLogin {
 
     @Id
     @Column(length = 10)
     private String loginId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
