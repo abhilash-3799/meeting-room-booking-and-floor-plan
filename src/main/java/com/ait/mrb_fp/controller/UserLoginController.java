@@ -1,7 +1,7 @@
 package com.ait.mrb_fp.controller;
 
-import com.ait.mrb_fp.dto.LoginRequestDTO;
-import com.ait.mrb_fp.dto.LoginResponseDTO;
+import com.ait.mrb_fp.dto.request.LoginRequestDTO;
+import com.ait.mrb_fp.dto.response.LoginResponseDTO;
 import com.ait.mrb_fp.service.UserLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

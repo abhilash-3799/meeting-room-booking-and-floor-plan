@@ -1,4 +1,4 @@
-package com.ait.mrb_fp.dto;
+package com.ait.mrb_fp.dto.response;
 
 import lombok.*;
 
