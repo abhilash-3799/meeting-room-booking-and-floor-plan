@@ -8,9 +8,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BookingDTO {
+public class SeatBookingDTO {
 
     private String allocationId;
+
     private String seatId;
     private String seatNumber;
 
@@ -19,5 +20,6 @@ public class BookingDTO {
 
     private LocalDateTime allocationDate;
     private String status;
+
     private boolean isActive;
 }

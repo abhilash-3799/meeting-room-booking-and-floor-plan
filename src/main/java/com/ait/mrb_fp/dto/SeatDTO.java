@@ -10,13 +10,16 @@ import lombok.*;
 public class SeatDTO {
 
     private String seatId;
+
     private String officeId;
     private String officeName;
 
     private String seatNumber;
     private String seatStatus;
+
     private String assignedTeamId;
     private String assignedTeamName;
+
     private String queueId;
     private String queueName;
 

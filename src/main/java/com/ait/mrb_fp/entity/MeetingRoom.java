@@ -36,6 +36,11 @@ public class MeetingRoom {
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<MeetingBooking> bookings;
 
+    // ✅ Add this field if missing
+    @Column(length = 10, nullable = false)
+    private String officeId;
+
+
     public enum RoomType {
         BOARD_ROOM, CONFERENCE_ROOM, CABIN
     }
