@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Example: Invalid JWT token or user tries to access a protected resource without login.
  */
 @ResponseStatus(HttpStatus.UNAUTHORIZED)
-public class gitUnauthorizedException extends RuntimeException {
+public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException(String message) {
         super(message);
     }
