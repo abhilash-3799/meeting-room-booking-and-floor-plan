@@ -44,14 +44,14 @@ public class ShiftServiceImpl implements ShiftService {
     }
 
     @Override
-    public ShiftResponseDTO updateShift(String shiftId, ShiftRequestDTO dto) {
+    public ShiftResponseDTO updateShift(String shiftId, ShiftRequestDTO requestDTO) {
         Shift existing = shiftRepository.findById(shiftId)
                 .orElseThrow(() -> new ResourceNotFoundException("Shift not found with ID: " + shiftId));
 
-        existing.setShiftName(dto.getShiftName());
-        existing.setStartTime(java.time.LocalTime.parse(dto.getStartTime()));
-        existing.setEndTime(java.time.LocalTime.parse(dto.getEndTime()));
-        existing.setDescription(dto.getDescription());
+        existing.setShiftName(requestDTO.getShiftName());
+        existing.setStartTime(requestDTO.getStartTime());
+        existing.setEndTime(requestDTO.getEndTime());
+        existing.setDescription(requestDTO.getDescription());
 
         return ShiftMapper.toResponse(shiftRepository.save(existing));
     }
