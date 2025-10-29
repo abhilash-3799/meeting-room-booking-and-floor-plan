@@ -6,22 +6,30 @@ import com.ait.mrb_fp.entity.Office;
 
 public class OfficeMapper {
 
-    public static Office toEntity(OfficeRequestDTO dto) {
-        return Office.builder()
-                .officeName(dto.getOfficeName())
-                .location(dto.getLocation())
-                .totalSeats(dto.getTotalSeats())
-                .isActive(true)
-                .build();
+    private OfficeMapper() {}
+
+    public static Office toEntity(OfficeRequestDTO r) {
+        Office o = new Office();
+        o.setOfficeName(r.getOfficeName());
+        o.setLocation(r.getLocation());
+        o.setTotalSeats(r.getTotalSeats());
+        o.setActive(true);
+        return o;
     }
 
-    public static OfficeResponseDTO toResponse(Office entity) {
-        return OfficeResponseDTO.builder()
-                .officeId(entity.getOfficeId())
-                .officeName(entity.getOfficeName())
-                .location(entity.getLocation())
-                .totalSeats(entity.getTotalSeats())
-                .isActive(entity.isActive())
-                .build();
+    public static OfficeResponseDTO toResponse(Office o) {
+        OfficeResponseDTO r = new OfficeResponseDTO();
+        r.setOfficeId(o.getOfficeId());
+        r.setOfficeName(o.getOfficeName());
+        r.setLocation(o.getLocation());
+        r.setTotalSeats(o.getTotalSeats());
+        r.setActive(o.isActive());
+        return r;
+    }
+
+    public static void updateEntity(Office o, OfficeRequestDTO r) {
+        o.setOfficeName(r.getOfficeName());
+        o.setLocation(r.getLocation());
+        o.setTotalSeats(r.getTotalSeats());
     }
 }

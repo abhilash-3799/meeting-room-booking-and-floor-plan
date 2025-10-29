@@ -2,18 +2,20 @@ package com.ait.mrb_fp.dto.request;
 
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MeetingBookingRequestDTO {
+public class MeetingRoomBookingRequestDTO {
     private String roomId;
     private String bookedByEmployeeId;
-    private String meetingDate;
-    private String startTime;
-    private String endTime;
-    private Integer noOfAttendees;
+    private LocalDate meetingDate;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String purpose;
     private String status;
 }

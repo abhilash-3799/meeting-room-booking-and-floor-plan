@@ -2,6 +2,8 @@ package com.ait.mrb_fp.dto.response;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -11,7 +13,7 @@ public class SeatBookingResponseDTO {
     private String allocationId;
     private String seatNumber;
     private String employeeName;
-    private String allocationDate;
+    private LocalDateTime allocationDate;
     private String status;
     private boolean isActive;
 }

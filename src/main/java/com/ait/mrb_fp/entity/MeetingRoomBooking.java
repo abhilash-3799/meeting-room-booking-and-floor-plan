@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @ToString(exclude = {"room", "bookedBy"})
 @EqualsAndHashCode(exclude = {"room", "bookedBy"})
-public class MeetingBooking {
+public class MeetingRoomBooking {
 
     @Id
     @Column(length = 10)
@@ -36,8 +36,6 @@ public class MeetingBooking {
 
     @Column(nullable = false)
     private LocalDateTime endTime;
-
-    private Integer noOfAttendees;
 
     private String purpose;
 

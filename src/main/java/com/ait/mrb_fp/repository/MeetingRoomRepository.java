@@ -1,4 +1,7 @@
 package com.ait.mrb_fp.repository;
 
-public interface MeetingRoomRepository {
+import com.ait.mrb_fp.entity.MeetingRoom;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, String> {
 }

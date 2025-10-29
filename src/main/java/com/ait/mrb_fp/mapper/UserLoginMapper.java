@@ -2,28 +2,36 @@ package com.ait.mrb_fp.mapper;
 
 import com.ait.mrb_fp.dto.request.UserLoginRequestDTO;
 import com.ait.mrb_fp.dto.response.UserLoginResponseDTO;
-import com.ait.mrb_fp.entity.UserLogin;
-import com.ait.mrb_fp.entity.Employee;
+import com.ait.mrb_fp.entity.*;
 
 public class UserLoginMapper {
 
-    public static UserLogin toEntity(UserLoginRequestDTO dto, Employee employee) {
-        return UserLogin.builder()
-                .employee(employee)
-                .username(dto.getUsername())
-                .password(dto.getPassword())
-                .role(UserLogin.Role.valueOf(dto.getRole()))
-                .isActive(true)
-                .build();
+    private UserLoginMapper() {}
+
+    public static UserLogin toEntity(UserLoginRequestDTO r, Employee e) {
+        UserLogin u = new UserLogin();
+        u.setEmployee(e);
+        u.setUsername(r.getUsername());
+        u.setPassword(r.getPassword());
+        u.setRole(UserLogin.Role.valueOf(r.getRole()));
+        u.setActive(true);
+        return u;
     }
 
-    public static UserLoginResponseDTO toResponse(UserLogin entity) {
-        return UserLoginResponseDTO.builder()
-                .loginId(entity.getLoginId())
-                .employeeName(entity.getEmployee().getFirstName() + " " + entity.getEmployee().getLastName())
-                .username(entity.getUsername())
-                .role(entity.getRole().name())
-                .isActive(entity.isActive())
-                .build();
+    public static UserLoginResponseDTO toResponse(UserLogin u) {
+        UserLoginResponseDTO r = new UserLoginResponseDTO();
+        r.setLoginId(u.getLoginId());
+        r.setEmployeeName(u.getEmployee() != null ? u.getEmployee().getFirstName() + " " + u.getEmployee().getLastName() : null);
+        r.setUsername(u.getUsername());
+        r.setRole(u.getRole().name());
+        r.setActive(u.isActive());
+        return r;
+    }
+
+    public static void updateEntity(UserLogin u, UserLoginRequestDTO r, Employee e) {
+        u.setEmployee(e);
+        u.setUsername(r.getUsername());
+        u.setPassword(r.getPassword());
+        u.setRole(UserLogin.Role.valueOf(r.getRole()));
     }
 }

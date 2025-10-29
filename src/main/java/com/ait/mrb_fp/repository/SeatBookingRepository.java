@@ -1,4 +1,7 @@
 package com.ait.mrb_fp.repository;
 
-public interface SeatBookingRepository {
-}
+import com.ait.mrb_fp.entity.SeatBooking;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SeatBookingRepository extends JpaRepository<SeatBooking, String> {}
+

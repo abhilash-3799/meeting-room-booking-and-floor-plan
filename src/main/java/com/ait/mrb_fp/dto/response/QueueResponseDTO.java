@@ -2,6 +2,8 @@ package com.ait.mrb_fp.dto.response;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,6 +14,5 @@ public class QueueResponseDTO {
     private String queueName;
     private String officeName;
     private int totalSeats;
-    private String createdDate;
     private boolean isActive;
 }

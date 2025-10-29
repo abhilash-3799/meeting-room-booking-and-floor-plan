@@ -35,11 +35,6 @@ public class UserLogin {
     @Column(nullable = false)
     private boolean isActive = true;
 
-//    public enum Role {
-//        EMPLOYEE, ADMIN, TEAM_LEAD
-//    }
-
-
     public enum Role {
         employee, admin, team_lead
     }

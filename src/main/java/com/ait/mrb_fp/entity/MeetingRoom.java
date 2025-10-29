@@ -37,7 +37,7 @@ public class MeetingRoom {
     private boolean isActive = true;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MeetingBooking> bookings;
+    private List<MeetingRoomBooking> bookings;
 
     public enum RoomType {
         BOARD_ROOM, CONFERENCE_ROOM, CABIN
