@@ -22,7 +22,7 @@ public class Team {
     @Column(length = 100, nullable = false)
     private String teamName;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = true)
     private String department;
 
     @Column(nullable = false)
