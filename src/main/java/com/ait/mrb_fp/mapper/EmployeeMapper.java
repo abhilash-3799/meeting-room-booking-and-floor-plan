@@ -9,34 +9,48 @@ import com.ait.mrb_fp.entity.Shift;
 
 public class EmployeeMapper {
 
-    public static Employee toEntity(EmployeeRequestDTO dto, Team team, Office office, Shift shift) {
-        return Employee.builder()
-                .employeeNumber(dto.getEmployeeNumber())
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
-                .email(dto.getEmail())
-                .team(team)
-                .office(office)
-                .shift(shift)
-                .employeeType(Employee.EmployeeType.valueOf(dto.getEmployeeType()))
-                .isTeamLead(dto.isTeamLead())
-                .isActive(true)
-                .build();
+    private EmployeeMapper() {}
+
+    public static Employee toEntity(EmployeeRequestDTO request, Team team, Office office, Shift shift) {
+        Employee e = new Employee();
+        e.setEmployeeNumber(request.getEmployeeNumber());
+        e.setFirstName(request.getFirstName());
+        e.setLastName(request.getLastName());
+        e.setEmail(request.getEmail());
+        e.setTeam(team);
+        e.setOffice(office);
+        e.setShift(shift);
+        e.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
+        e.setTeamLead(request.isTeamLead());
+        e.setActive(true);
+        return e;
     }
 
-    public static EmployeeResponseDTO toResponse(Employee entity) {
-        return EmployeeResponseDTO.builder()
-                .employeeId(entity.getEmployeeId())
-                .employeeNumber(entity.getEmployeeNumber())
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .email(entity.getEmail())
-                .teamName(entity.getTeam() != null ? entity.getTeam().getTeamName() : null)
-                .officeName(entity.getOffice() != null ? entity.getOffice().getOfficeName() : null)
-                .shiftName(entity.getShift() != null ? entity.getShift().getShiftName() : null)
-                .employeeType(entity.getEmployeeType().name())
-                .isTeamLead(entity.isTeamLead())
-                .isActive(entity.isActive())
-                .build();
+    public static EmployeeResponseDTO toResponse(Employee e) {
+        EmployeeResponseDTO r = new EmployeeResponseDTO();
+        r.setEmployeeId(e.getEmployeeId());
+        r.setEmployeeNumber(e.getEmployeeNumber());
+        r.setFirstName(e.getFirstName());
+        r.setLastName(e.getLastName());
+        r.setEmail(e.getEmail());
+        r.setTeamName(e.getTeam() != null ? e.getTeam().getTeamName() : null);
+        r.setOfficeName(e.getOffice() != null ? e.getOffice().getOfficeName() : null);
+        r.setShiftName(e.getShift() != null ? e.getShift().getShiftName() : null);
+        r.setEmployeeType(e.getEmployeeType().name());
+        r.setTeamLead(e.isTeamLead());
+        r.setActive(e.isActive());
+        return r;
+    }
+
+    public static void updateEntity(Employee existing, EmployeeRequestDTO request, Team team, Office office, Shift shift) {
+        existing.setEmployeeNumber(request.getEmployeeNumber());
+        existing.setFirstName(request.getFirstName());
+        existing.setLastName(request.getLastName());
+        existing.setEmail(request.getEmail());
+        existing.setTeam(team);
+        existing.setOffice(office);
+        existing.setShift(shift);
+        existing.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
+        existing.setTeamLead(request.isTeamLead());
     }
 }

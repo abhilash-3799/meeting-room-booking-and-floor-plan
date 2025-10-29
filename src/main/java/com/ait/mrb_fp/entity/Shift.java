@@ -14,7 +14,7 @@ import java.time.LocalTime;
 public class Shift {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 50)
     private String shiftId;
 
     @Column(length = 100, nullable = false)
