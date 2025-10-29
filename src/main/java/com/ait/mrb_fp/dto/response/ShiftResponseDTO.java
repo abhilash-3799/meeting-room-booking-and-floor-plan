@@ -2,6 +2,8 @@ package com.ait.mrb_fp.dto.response;
 
 import lombok.*;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -10,8 +12,8 @@ import lombok.*;
 public class ShiftResponseDTO {
     private String shiftId;
     private String shiftName;
-    private String startTime;
-    private String endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private String description;
     private boolean isActive;
 }

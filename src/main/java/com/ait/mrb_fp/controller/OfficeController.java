@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/offices")
+@RequestMapping("/api/office")
 @RequiredArgsConstructor
 public class OfficeController {
 

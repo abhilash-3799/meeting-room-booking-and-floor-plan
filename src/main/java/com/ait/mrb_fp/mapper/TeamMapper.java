@@ -6,20 +6,27 @@ import com.ait.mrb_fp.entity.Team;
 
 public class TeamMapper {
 
-    public static Team toEntity(TeamRequestDTO dto) {
-        return Team.builder()
-                .teamName(dto.getTeamName())
-                .department(dto.getDepartment())
-                .isActive(true)
-                .build();
+    private TeamMapper() {}
+
+    public static Team toEntity(TeamRequestDTO r) {
+        Team t = new Team();
+        t.setTeamName(r.getTeamName());
+        t.setDepartment(r.getDepartment());
+        t.setActive(true);
+        return t;
     }
 
-    public static TeamResponseDTO toResponse(Team entity) {
-        return TeamResponseDTO.builder()
-                .teamId(entity.getTeamId())
-                .teamName(entity.getTeamName())
-                .department(entity.getDepartment())
-                .isActive(entity.isActive())
-                .build();
+    public static TeamResponseDTO toResponse(Team t) {
+        TeamResponseDTO r = new TeamResponseDTO();
+        r.setTeamId(t.getTeamId());
+        r.setTeamName(t.getTeamName());
+        r.setDepartment(t.getDepartment());
+        r.setActive(t.isActive());
+        return r;
+    }
+
+    public static void updateEntity(Team t, TeamRequestDTO r) {
+        t.setTeamName(r.getTeamName());
+        t.setDepartment(r.getDepartment());
     }
 }

@@ -31,9 +31,6 @@ public class Queue {
     private int totalSeats;
 
     @Column(nullable = false)
-    private LocalDateTime createdDate;
-
-    @Column(nullable = false)
     private boolean isActive = true;
 
     @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
