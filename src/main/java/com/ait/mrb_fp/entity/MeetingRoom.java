@@ -16,21 +16,21 @@ import java.util.List;
 public class MeetingRoom {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String roomId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String roomName;
 
     @Column(nullable = false)
     private int capacity;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(length = 20, nullable = false)
     private RoomType roomType;
 
     @Column(nullable = false)

@@ -1,8 +1,8 @@
 package com.ait.mrb_fp.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.time.LocalDateTime;
+        import lombok.*;
+        import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "seat_booking")
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class SeatBooking {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String allocationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,8 +31,8 @@ public class SeatBooking {
     private LocalDateTime allocationDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
-    private BookingStatus status;
+    @Column(length = 10, nullable = false)
+    private BookingStatus status = BookingStatus.ALLOCATED;
 
     @Column(nullable = false)
     private boolean isActive = true;

@@ -14,10 +14,10 @@ import java.time.LocalTime;
 public class Shift {
 
     @Id
-    @Column(length = 50)
+    @Column(length = 36, nullable = false)
     private String shiftId;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String shiftName;
 
     @Column(nullable = false)
