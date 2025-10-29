@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class MeetingRoomBooking {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String meetingId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,11 +37,12 @@ public class MeetingRoomBooking {
     @Column(nullable = false)
     private LocalDateTime endTime;
 
+    @Column(length = 255)
     private String purpose;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
-    private MeetingStatus status;
+    @Column(length = 10, nullable = false)
+    private MeetingStatus status = MeetingStatus.BOOKED;
 
     @Column(nullable = false)
     private boolean isActive = true;

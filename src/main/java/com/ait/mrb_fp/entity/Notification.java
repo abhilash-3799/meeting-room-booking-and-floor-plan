@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Notification {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String notificationId;
 
     @ManyToOne(fetch = FetchType.LAZY)

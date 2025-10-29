@@ -15,18 +15,18 @@ import lombok.*;
 public class Seat {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String seatId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String seatNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 15)
+    @Column(length = 15, nullable = false)
     private SeatStatus seatStatus = SeatStatus.UNALLOCATED;
 
     @ManyToOne(fetch = FetchType.LAZY)
