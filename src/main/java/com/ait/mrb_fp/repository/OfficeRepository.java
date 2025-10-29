@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface OfficeRepository extends JpaRepository<Office, String> {
     List<Office> findByIsActiveTrue();
+
+    boolean existsByOfficeName(String officeName);
+
+    Office findByOfficeName(String officeName);
 }

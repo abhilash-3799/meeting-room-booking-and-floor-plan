@@ -8,5 +8,9 @@ import java.util.List;
 
 public interface ShiftRepository extends JpaRepository<Shift, String> {
     List<Shift> findByIsActiveTrue();
+
+    Shift findByShiftName(String shiftName);
+
+    boolean existsByShiftName(String shiftName);
 }
 
