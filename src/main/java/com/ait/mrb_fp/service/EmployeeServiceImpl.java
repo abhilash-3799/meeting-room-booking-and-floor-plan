@@ -139,7 +139,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             existing.setTeam(team);
             existing.setOffice(office);
             existing.setShift(shift);
-            existing.setTeamLead(dto.isTeamLead());
 
             try {
                 existing.setEmployeeType(Employee.EmployeeType.valueOf(dto.getEmployeeType()));

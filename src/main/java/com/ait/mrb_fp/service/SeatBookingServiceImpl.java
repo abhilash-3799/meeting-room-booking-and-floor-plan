@@ -56,7 +56,7 @@ public class SeatBookingServiceImpl implements SeatBookingService {
             SeatBooking booking = SeatBookingMapper.toEntity(dto, seat, employee);
 
             booking.setAllocationId("BK" + System.currentTimeMillis());
-            booking.setAllocationDate(LocalDate.now());
+            booking.setAllocationDate(LocalDateTime.now());
             seatBookingRepo.save(booking);
 
             return SeatBookingMapper.toResponse(booking);
@@ -163,7 +163,7 @@ public class SeatBookingServiceImpl implements SeatBookingService {
             seatRepo.save(seat);
 
             SeatBooking booking = SeatBookingMapper.toEntity(dto, seat, employee);
-            booking.setAllocationDate(LocalDate.now());
+            booking.setAllocationDate(LocalDateTime.now());
 
             seatBookingRepo.save(booking);
 
