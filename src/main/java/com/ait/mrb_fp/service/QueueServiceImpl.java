@@ -29,6 +29,9 @@ public class QueueServiceImpl implements QueueService {
         Office office = officeRepo.findById(dto.getOfficeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Office not found"));
         Queue queue = QueueMapper.toEntity(dto, office);
+
+        // ✅ Auto-generate Queue ID
+        queue.setQueueId("Q" + System.currentTimeMillis());
         queueRepo.save(queue);
         return QueueMapper.toResponse(queue);
     }

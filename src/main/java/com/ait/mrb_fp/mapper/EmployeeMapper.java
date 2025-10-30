@@ -21,7 +21,7 @@ public class EmployeeMapper {
         e.setOffice(office);
         e.setShift(shift);
         e.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
-        e.setTeamLead(request.isTeamLead());
+
         e.setActive(true);
         return e;
     }
@@ -37,7 +37,7 @@ public class EmployeeMapper {
         r.setOfficeName(e.getOffice() != null ? e.getOffice().getOfficeName() : null);
         r.setShiftName(e.getShift() != null ? e.getShift().getShiftName() : null);
         r.setEmployeeType(e.getEmployeeType().name());
-        r.setTeamLead(e.isTeamLead());
+
         r.setActive(e.isActive());
         return r;
     }
@@ -51,6 +51,6 @@ public class EmployeeMapper {
         existing.setOffice(office);
         existing.setShift(shift);
         existing.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
-        existing.setTeamLead(request.isTeamLead());
+
     }
 }

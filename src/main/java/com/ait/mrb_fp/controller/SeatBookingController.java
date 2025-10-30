@@ -41,4 +41,12 @@ public class SeatBookingController {
     public void delete(@PathVariable String id) {
         seatBookingService.delete(id);
     }
+
+
+    // ✅ Bulk booking for Team Leads
+    @PostMapping("/bulk/{teamLeadId}")
+    public List<SeatBookingResponseDTO> createBulk(@PathVariable String teamLeadId,
+                                                   @RequestBody List<SeatBookingRequestDTO> dtos) {
+        return seatBookingService.createBulk(dtos, teamLeadId);
+    }
 }

@@ -47,7 +47,7 @@ public class Employee {
     private EmployeeType employeeType = EmployeeType.REGULAR;
 
     @Column(nullable = false)
-    private boolean isTeamLead = false;
+    private boolean TeamLead = false;
 
     @Column(nullable = false)
     private boolean isActive = true;
@@ -56,3 +56,4 @@ public class Employee {
         REGULAR, HYBRID, WFH
     }
 }
+

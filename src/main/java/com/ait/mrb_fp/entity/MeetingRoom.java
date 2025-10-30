@@ -33,6 +33,10 @@ public class MeetingRoom {
     @Column(length = 20, nullable = false)
     private RoomType roomType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private MeetingRoomStatus roomStatus = MeetingRoomStatus.AVAILABLE;
+
     @Column(nullable = false)
     private boolean isActive = true;
 
@@ -42,4 +46,10 @@ public class MeetingRoom {
     public enum RoomType {
         BOARD_ROOM, CONFERENCE_ROOM, CABIN
     }
+
+    public enum MeetingRoomStatus{
+        AVAILABLE, NOT_AVAILABLE
+    }
 }
+
+

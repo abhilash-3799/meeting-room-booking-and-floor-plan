@@ -36,3 +36,4 @@ public class Notification {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 }
+

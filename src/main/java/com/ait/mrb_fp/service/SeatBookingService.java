@@ -15,4 +15,6 @@ public interface SeatBookingService {
     SeatBookingResponseDTO update(String id, SeatBookingRequestDTO dto);
 
     void delete(String id);
+
+    List<SeatBookingResponseDTO> createBulk(List<SeatBookingRequestDTO> dtos, String teamLeadId);
 }

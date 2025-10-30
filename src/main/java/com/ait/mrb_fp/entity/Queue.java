@@ -16,6 +16,7 @@ import java.util.List;
 public class Queue {
 
     @Id
+
     @Column(length = 36, nullable = false)
     private String queueId;
 
@@ -35,3 +36,4 @@ public class Queue {
     @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats;
 }
+
