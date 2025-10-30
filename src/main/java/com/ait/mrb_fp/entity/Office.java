@@ -16,10 +16,10 @@ import java.util.List;
 public class Office {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String officeId;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String officeName;
 
     @Column(length = 200, nullable = false)
@@ -28,7 +28,7 @@ public class Office {
     @Column(nullable = false)
     private int totalSeats;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -43,3 +43,4 @@ public class Office {
     @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats;
 }
+

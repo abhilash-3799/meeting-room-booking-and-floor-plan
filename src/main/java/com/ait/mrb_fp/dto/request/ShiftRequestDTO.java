@@ -2,6 +2,8 @@ package com.ait.mrb_fp.dto.request;
 
 import lombok.*;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -9,7 +11,7 @@ import lombok.*;
 @Builder
 public class ShiftRequestDTO {
     private String shiftName;
-    private String startTime;
-    private String endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private String description;
 }

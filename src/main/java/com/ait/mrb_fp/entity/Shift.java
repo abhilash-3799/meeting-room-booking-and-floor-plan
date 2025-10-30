@@ -14,10 +14,10 @@ import java.time.LocalTime;
 public class Shift {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String shiftId;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String shiftName;
 
     @Column(nullable = false)
@@ -29,6 +29,7 @@ public class Shift {
     @Column(length = 255)
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 }
+

@@ -15,10 +15,10 @@ import lombok.*;
 public class Employee {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String employeeId;
 
-    @Column(length = 10, unique = true, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String employeeNumber;
 
     @Column(length = 100, nullable = false)
@@ -27,7 +27,7 @@ public class Employee {
     @Column(length = 100, nullable = false)
     private String lastName;
 
-    @Column(length = 150, nullable = false)
+    @Column(length = 150, nullable = false, unique = true)
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,11 +43,11 @@ public class Employee {
     private Shift shift;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
-    private EmployeeType employeeType;
+    @Column(length = 10, nullable = false)
+    private EmployeeType employeeType = EmployeeType.REGULAR;
 
     @Column(nullable = false)
-    private boolean isTeamLead;
+    private boolean TeamLead = false;
 
     @Column(nullable = false)
     private boolean isActive = true;
@@ -56,3 +56,4 @@ public class Employee {
         REGULAR, HYBRID, WFH
     }
 }
+

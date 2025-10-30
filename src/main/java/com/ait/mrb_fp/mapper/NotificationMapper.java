@@ -2,27 +2,34 @@ package com.ait.mrb_fp.mapper;
 
 import com.ait.mrb_fp.dto.request.NotificationRequestDTO;
 import com.ait.mrb_fp.dto.response.NotificationResponseDTO;
-import com.ait.mrb_fp.entity.Notification;
-import com.ait.mrb_fp.entity.Employee;
+import com.ait.mrb_fp.entity.*;
 
 public class NotificationMapper {
 
-    public static Notification toEntity(NotificationRequestDTO dto, Employee employee) {
-        return Notification.builder()
-                .employee(employee)
-                .title(dto.getTitle())
-                .message(dto.getMessage())
-                .isActive(true)
-                .build();
+    private NotificationMapper() {}
+
+    public static Notification toEntity(NotificationRequestDTO r, Employee employee) {
+        Notification n = new Notification();
+        n.setEmployee(employee);
+        n.setTitle(r.getTitle());
+        n.setMessage(r.getMessage());
+        n.setActive(true);
+        return n;
     }
 
-    public static NotificationResponseDTO toResponse(Notification entity) {
-        return NotificationResponseDTO.builder()
-                .notificationId(entity.getNotificationId())
-                .employeeName(entity.getEmployee().getFirstName() + " " + entity.getEmployee().getLastName())
-                .title(entity.getTitle())
-                .message(entity.getMessage())
-                .isActive(entity.isActive())
-                .build();
+    public static NotificationResponseDTO toResponse(Notification n) {
+        NotificationResponseDTO r = new NotificationResponseDTO();
+        r.setNotificationId(n.getNotificationId());
+        r.setEmployeeName(n.getEmployee() != null ? n.getEmployee().getFirstName() + " " + n.getEmployee().getLastName() : null);
+        r.setTitle(n.getTitle());
+        r.setMessage(n.getMessage());
+        r.setActive(n.isActive());
+        return r;
+    }
+
+    public static void updateEntity(Notification n, NotificationRequestDTO r, Employee employee) {
+        n.setEmployee(employee);
+        n.setTitle(r.getTitle());
+        n.setMessage(r.getMessage());
     }
 }

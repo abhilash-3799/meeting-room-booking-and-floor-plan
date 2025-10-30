@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 @Builder
 @ToString(exclude = {"room", "bookedBy"})
 @EqualsAndHashCode(exclude = {"room", "bookedBy"})
-public class MeetingBooking {
+public class MeetingRoomBooking {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String meetingId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,18 +37,21 @@ public class MeetingBooking {
     @Column(nullable = false)
     private LocalDateTime endTime;
 
-    private Integer noOfAttendees;
-
+    @Column(length = 255)
     private String purpose;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
-    private MeetingStatus status;
+    @Column(length = 10, nullable = false)
+    private MeetingStatus status = MeetingStatus.BOOKED;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     public enum MeetingStatus {
         BOOKED, CANCELLED, COMPLETED
     }
 }
+
+
+
+

@@ -15,18 +15,18 @@ import lombok.*;
 public class Seat {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String seatId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String seatNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 15)
+    @Column(length = 15, nullable = false, columnDefinition = "VARCHAR(15) DEFAULT 'UNALLOCATED'")
     private SeatStatus seatStatus = SeatStatus.UNALLOCATED;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,13 +37,14 @@ public class Seat {
     @JoinColumn(name = "queue_id")
     private Queue queue;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isAvailable = true;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     public enum SeatStatus {
         UNALLOCATED, ALLOCATED
     }
 }
+

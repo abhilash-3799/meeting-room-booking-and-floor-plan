@@ -16,18 +16,20 @@ import java.util.List;
 public class Team {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String teamId;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String teamName;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String department;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
 }
+
+

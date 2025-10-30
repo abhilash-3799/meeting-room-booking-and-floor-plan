@@ -2,6 +2,7 @@ package com.ait.mrb_fp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 public class Notification {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 36, nullable = false)
     private String notificationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,9 +31,10 @@ public class Notification {
     @Column(nullable = false)
     private String message;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt = LocalDateTime.now();
 }
+
