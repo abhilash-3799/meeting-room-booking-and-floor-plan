@@ -44,7 +44,7 @@ public class MeetingRoomBooking {
     @Column(length = 10, nullable = false)
     private MeetingStatus status = MeetingStatus.BOOKED;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     public enum MeetingStatus {

@@ -29,6 +29,6 @@ public class Shift {
     @Column(length = 255)
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 }

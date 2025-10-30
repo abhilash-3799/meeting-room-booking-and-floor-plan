@@ -15,6 +15,7 @@ import lombok.*;
 public class Employee {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 36, nullable = false)
     private String employeeId;
 
@@ -43,13 +44,10 @@ public class Employee {
     private Shift shift;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 10, nullable = false)
+    @Column(length = 10, nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'REGULAR'")
     private EmployeeType employeeType = EmployeeType.REGULAR;
 
-    @Column(nullable = false)
-    private boolean isTeamLead = false;
-
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     public enum EmployeeType {

@@ -8,11 +8,13 @@ import com.ait.mrb_fp.mapper.MeetingRoomMapper;
 import com.ait.mrb_fp.repository.MeetingRoomRepository;
 import com.ait.mrb_fp.repository.OfficeRepository;
 import com.ait.mrb_fp.service.MeetingRoomService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class MeetingRoomServiceImpl implements MeetingRoomService {
 
@@ -26,43 +28,76 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 
     @Override
     public List<MeetingRoomResponseDTO> getAll() {
-        return meetingRoomRepository.findAll()
-                .stream()
-                .map(MeetingRoomMapper::toResponse)
-                .collect(Collectors.toList());
+        log.info("Fetching all meeting rooms");
+        try {
+            return meetingRoomRepository.findAll()
+                    .stream()
+                    .map(MeetingRoomMapper::toResponse)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            log.error("Error fetching meeting rooms: {}", e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public MeetingRoomResponseDTO getById(String id) {
-        MeetingRoom room = meetingRoomRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Meeting Room not found: " + id));
-        return MeetingRoomMapper.toResponse(room);
+        log.info("Fetching meeting room with ID: {}", id);
+        try {
+            MeetingRoom room = meetingRoomRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Meeting Room not found: " + id));
+            return MeetingRoomMapper.toResponse(room);
+        } catch (Exception e) {
+            log.error("Error fetching meeting room ID {}: {}", id, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public MeetingRoomResponseDTO create(MeetingRoomRequestDTO request) {
-        Office office = officeRepository.findById(request.getOfficeId())
-                .orElseThrow(() -> new RuntimeException("Office not found: " + request.getOfficeId()));
-        MeetingRoom meetingRoom = MeetingRoomMapper.toEntity(request, office);
-        meetingRoomRepository.save(meetingRoom);
-        return MeetingRoomMapper.toResponse(meetingRoom);
+        log.info("Creating meeting room: {}", request.getRoomName());
+        try {
+            Office office = officeRepository.findById(request.getOfficeId())
+                    .orElseThrow(() -> new RuntimeException("Office not found: " + request.getOfficeId()));
+            MeetingRoom meetingRoom = MeetingRoomMapper.toEntity(request, office);
+            meetingRoomRepository.save(meetingRoom);
+            log.info("Meeting room created successfully with ID: {}", meetingRoom.getRoomId());
+            return MeetingRoomMapper.toResponse(meetingRoom);
+        } catch (Exception e) {
+            log.error("Error creating meeting room: {}", e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public MeetingRoomResponseDTO update(String id, MeetingRoomRequestDTO request) {
-        MeetingRoom existing = meetingRoomRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Meeting Room not found: " + id));
+        log.info("Updating meeting room with ID: {}", id);
+        try {
+            MeetingRoom existing = meetingRoomRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Meeting Room not found: " + id));
 
-        Office office = officeRepository.findById(request.getOfficeId())
-                .orElseThrow(() -> new RuntimeException("Office not found: " + request.getOfficeId()));
+            Office office = officeRepository.findById(request.getOfficeId())
+                    .orElseThrow(() -> new RuntimeException("Office not found: " + request.getOfficeId()));
 
-        MeetingRoomMapper.updateEntity(existing, request, office);
-        meetingRoomRepository.save(existing);
-        return MeetingRoomMapper.toResponse(existing);
+            MeetingRoomMapper.updateEntity(existing, request, office);
+            meetingRoomRepository.save(existing);
+            log.info("Meeting room with ID {} updated successfully", id);
+            return MeetingRoomMapper.toResponse(existing);
+        } catch (Exception e) {
+            log.error("Error updating meeting room ID {}: {}", id, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public void delete(String id) {
-        meetingRoomRepository.deleteById(id);
+        log.info("Deleting meeting room with ID: {}", id);
+        try {
+            meetingRoomRepository.deleteById(id);
+            log.info("Meeting room with ID {} deleted successfully", id);
+        } catch (Exception e) {
+            log.error("Error deleting meeting room ID {}: {}", id, e.getMessage());
+            throw e;
+        }
     }
 }

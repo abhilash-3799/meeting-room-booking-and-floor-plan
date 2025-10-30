@@ -29,7 +29,7 @@ public class Queue {
     @Column(nullable = false)
     private int totalSeats;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)

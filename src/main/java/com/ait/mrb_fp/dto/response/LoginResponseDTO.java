@@ -2,7 +2,8 @@ package com.ait.mrb_fp.dto.response;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
