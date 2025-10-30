@@ -41,3 +41,5 @@ public class SeatBooking {
         ALLOCATED, RELEASED
     }
 }
+
+

@@ -2,7 +2,6 @@ package com.ait.mrb_fp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
 @Entity
@@ -38,7 +37,7 @@ public class MeetingRoom {
     @Column(length = 20, nullable = false)
     private MeetingRoomStatus roomStatus = MeetingRoomStatus.AVAILABLE;
 
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    @Column(nullable = false)
     private boolean isActive = true;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -48,7 +47,9 @@ public class MeetingRoom {
         BOARD_ROOM, CONFERENCE_ROOM, CABIN
     }
 
-    public enum MeetingRoomStatus {
+    public enum MeetingRoomStatus{
         AVAILABLE, NOT_AVAILABLE
     }
 }
+
+

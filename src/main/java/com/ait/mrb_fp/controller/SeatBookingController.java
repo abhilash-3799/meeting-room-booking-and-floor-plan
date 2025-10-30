@@ -48,4 +48,12 @@ public class SeatBookingController {
         seatBookingService.delete(id);
         log.info("Seat booking {} deleted successfully", id);
     }
+
+
+    // ✅ Bulk booking for Team Leads
+    @PostMapping("/bulk/{teamLeadId}")
+    public List<SeatBookingResponseDTO> createBulk(@PathVariable String teamLeadId,
+                                                   @RequestBody List<SeatBookingRequestDTO> dtos) {
+        return seatBookingService.createBulk(dtos, teamLeadId);
+    }
 }

@@ -43,3 +43,4 @@ public class Office {
     @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats;
 }
+

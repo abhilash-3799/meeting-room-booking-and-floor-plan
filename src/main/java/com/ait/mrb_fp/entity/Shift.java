@@ -32,3 +32,4 @@ public class Shift {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 }
+

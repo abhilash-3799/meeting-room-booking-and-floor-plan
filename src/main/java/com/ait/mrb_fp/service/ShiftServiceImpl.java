@@ -3,18 +3,19 @@ package com.ait.mrb_fp.service;
 import com.ait.mrb_fp.dto.request.ShiftRequestDTO;
 import com.ait.mrb_fp.dto.response.ShiftResponseDTO;
 import com.ait.mrb_fp.entity.Shift;
-import com.ait.mrb_fp.exception.ResourceNotFoundException;
+import com.ait.mrb_fp.exception.*;
 import com.ait.mrb_fp.mapper.ShiftMapper;
 import com.ait.mrb_fp.repository.ShiftRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -22,81 +23,142 @@ public class ShiftServiceImpl implements ShiftService {
 
     private final ShiftRepository shiftRepository;
 
+    /**
+     * Create new shift with validation and custom exception handling.
+     */
     @Override
     public ShiftResponseDTO createShift(ShiftRequestDTO dto) {
-        log.info("Creating new shift: {}", dto.getShiftName());
         try {
+            if (dto == null) {
+                throw new InvalidRequestBodyException("Shift request body cannot be null.");
+            }
+
+            if (dto.getShiftName() == null || dto.getShiftName().isBlank()) {
+                throw new MissingRequestParameterException("Shift name is required.");
+            }
+
+            if (dto.getStartTime() == null || dto.getEndTime() == null) {
+                throw new MissingRequestParameterException("Start and End time are required for a shift.");
+            }
+
+            // Check for duplicate shift name
+            boolean exists = shiftRepository.existsByShiftName(dto.getShiftName());
+            if (exists) {
+                throw new DuplicateResourceException("Shift with name already exists: " + dto.getShiftName());
+            }
+
             Shift shift = ShiftMapper.toEntity(dto);
             shift.setShiftId("SFT" + System.currentTimeMillis());
-            Shift saved = shiftRepository.save(shift);
-            log.info("Shift created successfully with ID: {}", saved.getShiftId());
-            return ShiftMapper.toResponse(saved);
-        } catch (Exception e) {
-            log.error("Error creating shift '{}': {}", dto.getShiftName(), e.getMessage());
-            throw e;
+            shift.setActive(true);
+
+            return ShiftMapper.toResponse(shiftRepository.save(shift));
+
+        } catch (DataAccessException ex) {
+            throw new DatabaseException("Database error occurred while creating shift.");
+        } catch (TransactionSystemException ex) {
+            throw new TransactionFailedException("Transaction failed while creating shift.");
         }
     }
 
+    /**
+     * Get shift by ID with validation.
+     */
     @Override
     public ShiftResponseDTO getShiftById(String shiftId) {
-        log.info("Fetching shift by ID: {}", shiftId);
-        try {
-            Shift shift = shiftRepository.findById(shiftId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Shift not found with ID: " + shiftId));
-            return ShiftMapper.toResponse(shift);
-        } catch (Exception e) {
-            log.error("Error fetching shift ID {}: {}", shiftId, e.getMessage());
-            throw e;
+        if (shiftId == null || shiftId.isBlank()) {
+            throw new MissingRequestParameterException("Shift ID must not be empty.");
         }
+
+        Shift shift = shiftRepository.findById(shiftId)
+                .orElseThrow(() -> new ResourceNotFoundException("Shift not found with ID: " + shiftId));
+
+        if (!shift.isActive()) {
+            throw new InvalidStateException("Shift is inactive. Reactivate before accessing details.");
+        }
+
+        return ShiftMapper.toResponse(shift);
     }
 
+    /**
+     * Fetch all active shifts.
+     */
     @Override
     public List<ShiftResponseDTO> getAllShifts() {
-        log.info("Fetching all active shifts");
         try {
             return shiftRepository.findByIsActiveTrue()
                     .stream()
                     .map(ShiftMapper::toResponse)
                     .collect(Collectors.toList());
-        } catch (Exception e) {
-            log.error("Error fetching shift list: {}", e.getMessage());
-            throw e;
+        } catch (DataAccessException ex) {
+            throw new DatabaseException("Error occurred while fetching shifts from database.");
         }
     }
 
+    /**
+     * Update existing shift with validation and duplicate check.
+     */
     @Override
-    public ShiftResponseDTO updateShift(String shiftId, ShiftRequestDTO requestDTO) {
-        log.info("Updating shift with ID: {}", shiftId);
+    public ShiftResponseDTO updateShift(String shiftId, ShiftRequestDTO dto) {
         try {
+            if (shiftId == null || shiftId.isBlank()) {
+                throw new MissingRequestParameterException("Shift ID is required for update.");
+            }
+
+            if (dto == null) {
+                throw new InvalidRequestBodyException("Shift update request cannot be null.");
+            }
+
             Shift existing = shiftRepository.findById(shiftId)
                     .orElseThrow(() -> new ResourceNotFoundException("Shift not found with ID: " + shiftId));
 
-            existing.setShiftName(requestDTO.getShiftName());
-            existing.setStartTime(requestDTO.getStartTime());
-            existing.setEndTime(requestDTO.getEndTime());
-            existing.setDescription(requestDTO.getDescription());
+            if (!existing.isActive()) {
+                throw new InvalidStateException("Cannot update an inactive shift.");
+            }
 
-            Shift updated = shiftRepository.save(existing);
-            log.info("Shift with ID {} updated successfully", shiftId);
-            return ShiftMapper.toResponse(updated);
-        } catch (Exception e) {
-            log.error("Error updating shift ID {}: {}", shiftId, e.getMessage());
-            throw e;
+            // Check for duplicate shift name
+            Shift duplicate = shiftRepository.findByShiftName(dto.getShiftName());
+            if (duplicate != null && !duplicate.getShiftId().equals(shiftId)) {
+                throw new DuplicateResourceException("Another shift already exists with name: " + dto.getShiftName());
+            }
+
+            existing.setShiftName(dto.getShiftName());
+            existing.setStartTime(dto.getStartTime());
+            existing.setEndTime(dto.getEndTime());
+            existing.setDescription(dto.getDescription());
+
+            return ShiftMapper.toResponse(shiftRepository.save(existing));
+
+        } catch (DataAccessException ex) {
+            throw new DatabaseException("Database error occurred while updating shift.");
+        } catch (TransactionSystemException ex) {
+            throw new TransactionFailedException("Transaction failed during shift update.");
         }
     }
 
+    /**
+     * Deactivate (soft delete) a shift.
+     */
     @Override
     public void deactivateShift(String shiftId) {
-        log.info("Deactivating shift with ID: {}", shiftId);
         try {
+            if (shiftId == null || shiftId.isBlank()) {
+                throw new MissingRequestParameterException("Shift ID is required for deactivation.");
+            }
+
             Shift shift = shiftRepository.findById(shiftId)
                     .orElseThrow(() -> new ResourceNotFoundException("Shift not found with ID: " + shiftId));
+
+            if (!shift.isActive()) {
+                throw new InvalidStateException("Shift is already inactive.");
+            }
+
             shift.setActive(false);
             shiftRepository.save(shift);
-            log.info("Shift with ID {} deactivated successfully", shiftId);
-        } catch (Exception e) {
-            log.error("Error deactivating shift ID {}: {}", shiftId, e.getMessage());
-            throw e;
+
+        } catch (DataAccessException ex) {
+            throw new DatabaseException("Database error occurred while deactivating shift.");
+        } catch (TransactionSystemException ex) {
+            throw new TransactionFailedException("Transaction failed while deactivating shift.");
         }
     }
 }

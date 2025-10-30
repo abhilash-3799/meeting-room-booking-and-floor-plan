@@ -2,6 +2,7 @@ package com.ait.mrb_fp.dto.request;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,8 +11,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class SeatBookingRequestDTO {
+    private String bookingId;
     private String seatId;
     private String employeeId;
-    private LocalDateTime allocationDate;
+    private LocalDateTime allocationDate;  // ✅ corrected
     private String status;
 }
