@@ -23,7 +23,7 @@ public class MeetingRoomRequestDTO {
 
     @NotBlank(message = "Room type is required")
     @Pattern(
-            regexp = "^(CONFERENCE|MEETING|CABIN|DISCUSSION)$",
+            regexp = "^(CONFERENCE|BOARD ROOM|CABIN)$",
             message = "Room type must be one of: CONFERENCE, MEETING, CABIN, DISCUSSION"
     )
     private String roomType;
