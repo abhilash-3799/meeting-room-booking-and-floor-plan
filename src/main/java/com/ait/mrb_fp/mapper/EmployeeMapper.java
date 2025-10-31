@@ -21,25 +21,25 @@ public class EmployeeMapper {
         e.setOffice(office);
         e.setShift(shift);
         e.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
-
+        e.setTeamLead(request.isTeamLead());
         e.setActive(true);
         return e;
     }
 
     public static EmployeeResponseDTO toResponse(Employee e) {
-        EmployeeResponseDTO r = new EmployeeResponseDTO();
-        r.setEmployeeId(e.getEmployeeId());
-        r.setEmployeeNumber(e.getEmployeeNumber());
-        r.setFirstName(e.getFirstName());
-        r.setLastName(e.getLastName());
-        r.setEmail(e.getEmail());
-        r.setTeamName(e.getTeam() != null ? e.getTeam().getTeamName() : null);
-        r.setOfficeName(e.getOffice() != null ? e.getOffice().getOfficeName() : null);
-        r.setShiftName(e.getShift() != null ? e.getShift().getShiftName() : null);
-        r.setEmployeeType(e.getEmployeeType().name());
-
-        r.setActive(e.isActive());
-        return r;
+        return EmployeeResponseDTO.builder()
+                .employeeId(e.getEmployeeId())
+                .employeeNumber(e.getEmployeeNumber())
+                .firstName(e.getFirstName())
+                .lastName(e.getLastName())
+                .email(e.getEmail())
+                .teamName(e.getTeam() != null ? e.getTeam().getTeamName() : null)
+                .officeName(e.getOffice() != null ? e.getOffice().getOfficeName() : null)
+                .shiftName(e.getShift() != null ? e.getShift().getShiftName() : null)
+                .employeeType(e.getEmployeeType().name())
+                .teamLead(e.isTeamLead())
+                .isActive(e.isActive())
+                .build();
     }
 
     public static void updateEntity(Employee existing, EmployeeRequestDTO request, Team team, Office office, Shift shift) {
@@ -51,6 +51,6 @@ public class EmployeeMapper {
         existing.setOffice(office);
         existing.setShift(shift);
         existing.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
-
+        existing.setTeamLead(request.isTeamLead());
     }
 }
