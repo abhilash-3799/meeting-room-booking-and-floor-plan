@@ -83,6 +83,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+
+
     @Override
     public EmployeeResponseDTO getEmployeeById(String employeeId) {
         if (employeeId == null || employeeId.isBlank())
@@ -156,6 +158,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new InternalServerException("Unexpected error while updating employee: " + ex.getMessage());
         }
     }
+
 
     @Override
     public void deactivateEmployee(String employeeId) {

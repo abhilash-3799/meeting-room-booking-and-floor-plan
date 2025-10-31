@@ -17,5 +17,6 @@ public class EmployeeResponseDTO {
     private String officeName;
     private String shiftName;
     private String employeeType;
+    private boolean teamLead;
     private boolean isActive;
 }

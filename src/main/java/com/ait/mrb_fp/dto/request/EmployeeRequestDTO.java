@@ -16,4 +16,5 @@ public class EmployeeRequestDTO {
     private String officeId;
     private String shiftId;
     private String employeeType;
+    private boolean teamLead;
 }
