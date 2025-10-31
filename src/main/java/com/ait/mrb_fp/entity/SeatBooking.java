@@ -34,7 +34,7 @@ public class SeatBooking {
     @Column(length = 10, nullable = false)
     private BookingStatus status = BookingStatus.ALLOCATED;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     public enum BookingStatus {

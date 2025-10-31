@@ -32,10 +32,10 @@ public class UserLogin {
     @Column(nullable = false, length = 20)
     private Role role;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     public enum Role {
-        employee, admin, team_lead
+        EMPLOYEE, ADMIN, TEAM_LEAD
     }
 }

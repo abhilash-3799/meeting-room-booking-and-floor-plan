@@ -2,7 +2,8 @@ package com.ait.mrb_fp.dto.request;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

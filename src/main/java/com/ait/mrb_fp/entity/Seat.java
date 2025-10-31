@@ -26,7 +26,7 @@ public class Seat {
     private String seatNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 15, nullable = false)
+    @Column(length = 15, nullable = false, columnDefinition = "VARCHAR(15) DEFAULT 'UNALLOCATED'")
     private SeatStatus seatStatus = SeatStatus.UNALLOCATED;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,10 +37,10 @@ public class Seat {
     @JoinColumn(name = "queue_id")
     private Queue queue;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isAvailable = true;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
 
     public enum SeatStatus {

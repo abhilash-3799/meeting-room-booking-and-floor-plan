@@ -9,12 +9,13 @@ import com.ait.mrb_fp.mapper.MeetingRoomBookingMapper;
 import com.ait.mrb_fp.repository.MeetingRoomBookingRepository;
 import com.ait.mrb_fp.repository.MeetingRoomRepository;
 import com.ait.mrb_fp.repository.EmployeeRepository;
-import com.ait.mrb_fp.service.MeetingRoomBookingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class MeetingRoomBookingServiceImpl implements MeetingRoomBookingService {
 
@@ -33,52 +34,83 @@ public class MeetingRoomBookingServiceImpl implements MeetingRoomBookingService 
 
     @Override
     public List<MeetingRoomBookingResponseDTO> getAll() {
-        return bookingRepository.findAll()
-                .stream()
-                .map(MeetingRoomBookingMapper::toResponse)
-                .collect(Collectors.toList());
+        log.info("Fetching all meeting room bookings");
+        try {
+            return bookingRepository.findAll()
+                    .stream()
+                    .map(MeetingRoomBookingMapper::toResponse)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            log.error("Error fetching meeting room bookings: {}", e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public MeetingRoomBookingResponseDTO getById(String id) {
-        MeetingRoomBooking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Meeting booking not found: " + id));
-        return MeetingRoomBookingMapper.toResponse(booking);
+        log.info("Fetching meeting room booking with ID: {}", id);
+        try {
+            MeetingRoomBooking booking = bookingRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Meeting booking not found: " + id));
+            return MeetingRoomBookingMapper.toResponse(booking);
+        } catch (Exception e) {
+            log.error("Error fetching meeting room booking ID {}: {}", id, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public MeetingRoomBookingResponseDTO create(MeetingRoomBookingRequestDTO request) {
-        MeetingRoom room = roomRepository.findById(request.getRoomId())
-                .orElseThrow(() -> new RuntimeException("Meeting room not found: " + request.getRoomId()));
+        log.info("Creating new meeting room booking for room ID: {}", request.getRoomId());
+        try {
+            MeetingRoom room = roomRepository.findById(request.getRoomId())
+                    .orElseThrow(() -> new RuntimeException("Meeting room not found: " + request.getRoomId()));
 
-        Employee bookedBy = employeeRepository.findById(request.getBookedByEmployeeId())
-                .orElseThrow(() -> new RuntimeException("Employee not found: " + request.getBookedByEmployeeId()));
+            Employee bookedBy = employeeRepository.findById(request.getBookedByEmployeeId())
+                    .orElseThrow(() -> new RuntimeException("Employee not found: " + request.getBookedByEmployeeId()));
 
-        MeetingRoomBooking booking = MeetingRoomBookingMapper.toEntity(request, room, bookedBy);
-        bookingRepository.save(booking);
-
-        return MeetingRoomBookingMapper.toResponse(booking);
+            MeetingRoomBooking booking = MeetingRoomBookingMapper.toEntity(request, room, bookedBy);
+            bookingRepository.save(booking);
+            log.info("Meeting room booking created successfully with ID: {}", booking.getMeetingId());
+            return MeetingRoomBookingMapper.toResponse(booking);
+        } catch (Exception e) {
+            log.error("Error creating meeting room booking: {}", e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public MeetingRoomBookingResponseDTO update(String id, MeetingRoomBookingRequestDTO request) {
-        MeetingRoomBooking existing = bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Meeting booking not found: " + id));
+        log.info("Updating meeting room booking with ID: {}", id);
+        try {
+            MeetingRoomBooking existing = bookingRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Meeting booking not found: " + id));
 
-        MeetingRoom room = roomRepository.findById(request.getRoomId())
-                .orElseThrow(() -> new RuntimeException("Meeting room not found: " + request.getRoomId()));
+            MeetingRoom room = roomRepository.findById(request.getRoomId())
+                    .orElseThrow(() -> new RuntimeException("Meeting room not found: " + request.getRoomId()));
 
-        Employee bookedBy = employeeRepository.findById(request.getBookedByEmployeeId())
-                .orElseThrow(() -> new RuntimeException("Employee not found: " + request.getBookedByEmployeeId()));
+            Employee bookedBy = employeeRepository.findById(request.getBookedByEmployeeId())
+                    .orElseThrow(() -> new RuntimeException("Employee not found: " + request.getBookedByEmployeeId()));
 
-        MeetingRoomBookingMapper.updateEntity(existing, request, room, bookedBy);
-        bookingRepository.save(existing);
-
-        return MeetingRoomBookingMapper.toResponse(existing);
+            MeetingRoomBookingMapper.updateEntity(existing, request, room, bookedBy);
+            bookingRepository.save(existing);
+            log.info("Meeting room booking with ID {} updated successfully", id);
+            return MeetingRoomBookingMapper.toResponse(existing);
+        } catch (Exception e) {
+            log.error("Error updating meeting room booking ID {}: {}", id, e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public void delete(String id) {
-        bookingRepository.deleteById(id);
+        log.info("Deleting meeting room booking with ID: {}", id);
+        try {
+            bookingRepository.deleteById(id);
+            log.info("Meeting room booking with ID {} deleted successfully", id);
+        } catch (Exception e) {
+            log.error("Error deleting meeting room booking ID {}: {}", id, e.getMessage());
+            throw e;
+        }
     }
 }
