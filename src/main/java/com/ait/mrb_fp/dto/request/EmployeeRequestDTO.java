@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class EmployeeRequestDTO {
+    private String employeeId;
     private String employeeNumber;
     private String firstName;
     private String lastName;

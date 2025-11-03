@@ -16,6 +16,7 @@ public class Employee {
 
     @Id
     @Column(length = 36, nullable = false)
+
     private String employeeId;
 
     @Column(length = 50, nullable = false, unique = true)
@@ -46,9 +47,7 @@ public class Employee {
     @Column(length = 10, nullable = false)
     private EmployeeType employeeType = EmployeeType.REGULAR;
 
-//    @Column(nullable = false)
-//
-//    private boolean TeamLead = false;
+
 
     @Column(nullable = false)
     private boolean teamLead = false;

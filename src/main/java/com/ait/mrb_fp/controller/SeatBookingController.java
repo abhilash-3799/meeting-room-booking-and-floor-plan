@@ -43,7 +43,7 @@ public class SeatBookingController {
     }
 
 
-    // ✅ Bulk booking for Team Leads
+
     @PostMapping("/bulk/{teamLeadId}")
     public List<SeatBookingResponseDTO> createBulk(@PathVariable String teamLeadId,
                                                    @RequestBody List<SeatBookingRequestDTO> dtos) {

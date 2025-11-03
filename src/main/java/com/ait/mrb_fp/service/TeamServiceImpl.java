@@ -23,9 +23,7 @@ public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
 
-    /**
-     * Create a new Team with full validation.
-     */
+
     @Override
     public TeamResponseDTO createTeam(TeamRequestDTO dto) {
         try {
@@ -37,7 +35,7 @@ public class TeamServiceImpl implements TeamService {
                 throw new MissingRequestParameterException("Team name is required.");
             }
 
-            // Check duplicate name
+
             boolean exists = teamRepository.existsByTeamName(dto.getTeamName());
             if (exists) {
                 throw new DuplicateResourceException("Team with name already exists: " + dto.getTeamName());
@@ -56,9 +54,7 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
-    /**
-     * Fetch a single team by ID.
-     */
+
     @Override
     public TeamResponseDTO getTeamById(String teamId) {
         if (teamId == null || teamId.isBlank()) {
@@ -75,9 +71,7 @@ public class TeamServiceImpl implements TeamService {
         return TeamMapper.toResponse(team);
     }
 
-    /**
-     * Fetch all active teams.
-     */
+
     @Override
     public List<TeamResponseDTO> getAllTeams() {
         try {
@@ -90,9 +84,7 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
-    /**
-     * Update existing team.
-     */
+
     @Override
     public TeamResponseDTO updateTeam(String teamId, TeamRequestDTO dto) {
         try {
@@ -111,7 +103,7 @@ public class TeamServiceImpl implements TeamService {
                 throw new InvalidStateException("Cannot update an inactive team.");
             }
 
-            // Check duplicate name (if new name already exists in another team)
+
             Team duplicate = teamRepository.findByTeamName(dto.getTeamName());
             if (duplicate != null && !duplicate.getTeamId().equals(teamId)) {
                 throw new DuplicateResourceException("Another team already exists with name: " + dto.getTeamName());
@@ -129,9 +121,7 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
-    /**
-     * Deactivate (soft delete) a team.
-     */
+
     @Override
     public void deactivateTeam(String teamId) {
         try {

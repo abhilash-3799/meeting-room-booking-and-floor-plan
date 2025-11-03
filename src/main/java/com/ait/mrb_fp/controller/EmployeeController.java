@@ -16,9 +16,6 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    // ---------------------------------------
-    // ✅ Basic CRUD
-    // ---------------------------------------
 
     @PostMapping
     public ResponseEntity<EmployeeResponseDTO> createEmployee(@RequestBody EmployeeRequestDTO dto) {
@@ -35,14 +32,22 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getAllEmployees());
     }
 
-    @PutMapping("/{id}")
+
+
+
+    @PutMapping("/{employeeId}")
     public ResponseEntity<EmployeeResponseDTO> updateEmployee(
-            @PathVariable String id,
-            @RequestBody EmployeeRequestDTO dto) {
-        return ResponseEntity.ok(employeeService.updateEmployee(id, dto));
+            @PathVariable("employeeId") String employeeId,
+            @RequestBody EmployeeRequestDTO dto)
+    {
+
+
+        EmployeeResponseDTO updated = employeeService.updateEmployee(employeeId, dto);
+        return ResponseEntity.ok(updated);
     }
 
-    // ✅ Soft Delete (Deactivate Employee)
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deactivateEmployee(@PathVariable String id) {
         employeeService.deactivateEmployee(id);

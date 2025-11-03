@@ -62,26 +62,26 @@ public class SeatBookingMapper {
 
     private SeatBookingMapper() {}
 
-    // ✅ Convert RequestDTO to Entity
+
     public static SeatBooking toEntity(SeatBookingRequestDTO dto, Seat seat, Employee employee) {
         SeatBooking booking = new SeatBooking();
         booking.setSeat(seat);
         booking.setEmployee(employee);
 
-        // ✅ Always set current system time for allocationDate
+
         booking.setAllocationDate(LocalDateTime.now());
 
-        // ✅ Set status and mark active
+
         booking.setStatus(SeatBooking.BookingStatus.valueOf(dto.getStatus()));
         booking.setActive(true);
 
-        // ✅ Generate unique allocation ID
+
         booking.setAllocationId("BK" + System.currentTimeMillis());
 
         return booking;
     }
 
-    // ✅ Convert Entity to ResponseDTO
+
     public static SeatBookingResponseDTO toResponse(SeatBooking booking) {
         if (booking == null) return null;
 
@@ -97,13 +97,13 @@ public class SeatBookingMapper {
                 .build();
     }
 
-    // ✅ Update existing booking safely
+
     public static void updateEntity(SeatBooking existing, SeatBookingRequestDTO dto, Seat seat, Employee employee) {
         existing.setSeat(seat);
         existing.setEmployee(employee);
         existing.setStatus(SeatBooking.BookingStatus.valueOf(dto.getStatus()));
 
-        // ✅ Only update date if explicitly passed
+
         if (dto.getAllocationDate() != null) {
             existing.setAllocationDate(dto.getAllocationDate());
         }

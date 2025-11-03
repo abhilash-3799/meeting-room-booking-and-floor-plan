@@ -44,6 +44,7 @@ public class EmployeeMapper {
 
     public static void updateEntity(Employee existing, EmployeeRequestDTO request, Team team, Office office, Shift shift) {
         existing.setEmployeeNumber(request.getEmployeeNumber());
+
         existing.setFirstName(request.getFirstName());
         existing.setLastName(request.getLastName());
         existing.setEmail(request.getEmail());
@@ -52,5 +53,6 @@ public class EmployeeMapper {
         existing.setShift(shift);
         existing.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
         existing.setTeamLead(request.isTeamLead());
+
     }
 }

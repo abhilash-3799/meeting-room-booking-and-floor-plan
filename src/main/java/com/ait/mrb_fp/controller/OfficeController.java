@@ -36,7 +36,7 @@ public class OfficeController {
         return ResponseEntity.ok(officeService.updateOffice(id, dto));
     }
 
-    // ✅ Soft Delete (sets isActive = false)
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deactivateOffice(@PathVariable String id) {
         officeService.deactivateOffice(id);

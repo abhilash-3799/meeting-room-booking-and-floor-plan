@@ -1,4 +1,4 @@
-package com.ait.mrb_fp.service.impl;
+package com.ait.mrb_fp.service;
 
 import com.ait.mrb_fp.dto.request.MeetingRoomRequestDTO;
 import com.ait.mrb_fp.dto.response.MeetingRoomResponseDTO;
@@ -44,6 +44,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
         Office office = officeRepository.findById(request.getOfficeId())
                 .orElseThrow(() -> new RuntimeException("Office not found: " + request.getOfficeId()));
         MeetingRoom meetingRoom = MeetingRoomMapper.toEntity(request, office);
+        meetingRoom.setRoomId("MR" + System.currentTimeMillis());
         meetingRoomRepository.save(meetingRoom);
         return MeetingRoomMapper.toResponse(meetingRoom);
     }

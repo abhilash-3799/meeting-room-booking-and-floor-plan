@@ -36,7 +36,7 @@ public class ShiftController {
         return ResponseEntity.ok(shiftService.updateShift(id, dto));
     }
 
-    // ✅ Soft Delete (sets isActive = false)
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deactivateShift(@PathVariable String id) {
         shiftService.deactivateShift(id);

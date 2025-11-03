@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * ⚠️ Thrown when a user is authenticated but not authorized for a specific resource/action.
+ *  Thrown when a user is authenticated but not authorized for a specific resource/action.
  * Example: Employee with role USER tries to access ADMIN-only endpoint.
  */
 @ResponseStatus(HttpStatus.FORBIDDEN)

@@ -1,7 +1,7 @@
 package com.ait.mrb_fp.exception;
 
 /**
- * ⚠️ Thrown when the specified office does not exist.
+ *  Thrown when the specified office does not exist.
  * Example: Assigning employee to office ID that doesn’t exist.
  */
 public class OfficeNotFoundException extends ResourceNotFoundException {

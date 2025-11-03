@@ -22,27 +22,27 @@ public class UserLoginServiceImpl implements UserLoginService {
         if (user == null) {
             return LoginResponseDTO.builder()
                     .success(false)
-                    .message("❌ Invalid username")
+                    .message(" Invalid username")
                     .build();
         }
 
         if (!user.getPassword().equals(loginRequest.getPassword())) {
             return LoginResponseDTO.builder()
                     .success(false)
-                    .message("❌ Invalid password")
+                    .message("Invalid password")
                     .build();
         }
 
         if (!user.isActive()) {
             return LoginResponseDTO.builder()
                     .success(false)
-                    .message("⚠️ Account inactive. Please contact admin.")
+                    .message("Account inactive. Please contact admin.")
                     .build();
         }
 
         return LoginResponseDTO.builder()
                 .success(true)
-                .message("✅ Login successful")
+                .message("Login successful")
                 .username(user.getUsername())
                 .role(user.getRole().name())
                 .employeeId(user.getEmployee().getEmployeeId())

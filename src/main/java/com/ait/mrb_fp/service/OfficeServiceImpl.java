@@ -23,9 +23,7 @@ public class OfficeServiceImpl implements OfficeService {
 
     private final OfficeRepository officeRepository;
 
-    /**
-     * Create a new Office with full validation and exception handling.
-     */
+
     @Override
     public OfficeResponseDTO createOffice(OfficeRequestDTO dto) {
         try {
@@ -41,7 +39,7 @@ public class OfficeServiceImpl implements OfficeService {
                 throw new MissingRequestParameterException("Office location is required.");
             }
 
-            // Check for duplicate office name
+
             boolean exists = officeRepository.existsByOfficeName(dto.getOfficeName());
             if (exists) {
                 throw new DuplicateResourceException("Office with name already exists: " + dto.getOfficeName());
@@ -60,9 +58,7 @@ public class OfficeServiceImpl implements OfficeService {
         }
     }
 
-    /**
-     * Fetch office by ID.
-     */
+
     @Override
     public OfficeResponseDTO getOfficeById(String officeId) {
         if (officeId == null || officeId.isBlank()) {
@@ -79,9 +75,7 @@ public class OfficeServiceImpl implements OfficeService {
         return OfficeMapper.toResponse(office);
     }
 
-    /**
-     * Fetch all active offices.
-     */
+
     @Override
     public List<OfficeResponseDTO> getAllOffices() {
         try {
@@ -94,9 +88,7 @@ public class OfficeServiceImpl implements OfficeService {
         }
     }
 
-    /**
-     * Update existing office with validation.
-     */
+
     @Override
     public OfficeResponseDTO updateOffice(String officeId, OfficeRequestDTO dto) {
         try {
@@ -115,7 +107,6 @@ public class OfficeServiceImpl implements OfficeService {
                 throw new InvalidStateException("Cannot update an inactive office.");
             }
 
-            // Check for duplicate office name
             Office duplicate = officeRepository.findByOfficeName(dto.getOfficeName());
             if (duplicate != null && !duplicate.getOfficeId().equals(officeId)) {
                 throw new DuplicateResourceException("Another office already exists with name: " + dto.getOfficeName());
@@ -134,9 +125,7 @@ public class OfficeServiceImpl implements OfficeService {
         }
     }
 
-    /**
-     * Deactivate (soft delete) office.
-     */
+
     @Override
     public void deactivateOffice(String officeId) {
         try {

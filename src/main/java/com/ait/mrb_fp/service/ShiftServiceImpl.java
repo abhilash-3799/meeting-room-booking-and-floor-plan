@@ -23,9 +23,7 @@ public class ShiftServiceImpl implements ShiftService {
 
     private final ShiftRepository shiftRepository;
 
-    /**
-     * Create new shift with validation and custom exception handling.
-     */
+
     @Override
     public ShiftResponseDTO createShift(ShiftRequestDTO dto) {
         try {
@@ -41,7 +39,7 @@ public class ShiftServiceImpl implements ShiftService {
                 throw new MissingRequestParameterException("Start and End time are required for a shift.");
             }
 
-            // Check for duplicate shift name
+
             boolean exists = shiftRepository.existsByShiftName(dto.getShiftName());
             if (exists) {
                 throw new DuplicateResourceException("Shift with name already exists: " + dto.getShiftName());
@@ -60,9 +58,7 @@ public class ShiftServiceImpl implements ShiftService {
         }
     }
 
-    /**
-     * Get shift by ID with validation.
-     */
+
     @Override
     public ShiftResponseDTO getShiftById(String shiftId) {
         if (shiftId == null || shiftId.isBlank()) {
@@ -79,9 +75,7 @@ public class ShiftServiceImpl implements ShiftService {
         return ShiftMapper.toResponse(shift);
     }
 
-    /**
-     * Fetch all active shifts.
-     */
+
     @Override
     public List<ShiftResponseDTO> getAllShifts() {
         try {
@@ -94,9 +88,7 @@ public class ShiftServiceImpl implements ShiftService {
         }
     }
 
-    /**
-     * Update existing shift with validation and duplicate check.
-     */
+
     @Override
     public ShiftResponseDTO updateShift(String shiftId, ShiftRequestDTO dto) {
         try {
@@ -115,7 +107,7 @@ public class ShiftServiceImpl implements ShiftService {
                 throw new InvalidStateException("Cannot update an inactive shift.");
             }
 
-            // Check for duplicate shift name
+
             Shift duplicate = shiftRepository.findByShiftName(dto.getShiftName());
             if (duplicate != null && !duplicate.getShiftId().equals(shiftId)) {
                 throw new DuplicateResourceException("Another shift already exists with name: " + dto.getShiftName());
@@ -135,9 +127,7 @@ public class ShiftServiceImpl implements ShiftService {
         }
     }
 
-    /**
-     * Deactivate (soft delete) a shift.
-     */
+
     @Override
     public void deactivateShift(String shiftId) {
         try {

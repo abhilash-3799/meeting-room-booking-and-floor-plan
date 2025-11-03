@@ -14,6 +14,6 @@ public class SeatBookingRequestDTO {
     private String bookingId;
     private String seatId;
     private String employeeId;
-    private LocalDateTime allocationDate;  // ✅ corrected
+    private LocalDateTime allocationDate;
     private String status;
 }
