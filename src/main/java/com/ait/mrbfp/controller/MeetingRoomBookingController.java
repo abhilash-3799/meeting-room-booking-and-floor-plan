@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.MeetingRoomBookingRequestDTO;
 import com.ait.mrbfp.dto.response.MeetingRoomBookingResponseDTO;
-import com.ait.mrbfp.service.MeetingRoomBookingService;
+import com.ait.mrbfp.service.MeetingRoomBookingServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import java.util.List;
 @Tag(name = "Meeting Room Booking", description = "APIs for managing meeting room bookings")
 public class MeetingRoomBookingController {
 
-    private final MeetingRoomBookingService bookingService;
+    private final MeetingRoomBookingServiceImpl bookingService;
 
     @Operation(summary = "Create a meeting booking")
     @PostMapping

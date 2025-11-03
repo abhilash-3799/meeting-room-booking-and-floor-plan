@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.ShiftRequestDTO;
 import com.ait.mrbfp.dto.response.ShiftResponseDTO;
-import com.ait.mrbfp.service.ShiftService;
+import com.ait.mrbfp.service.ShiftServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "Shift Management", description = "APIs for managing shift schedules")
 public class ShiftController {
 
-    private final ShiftService shiftService;
+    private final ShiftServiceImpl shiftService;
 
     @Operation(summary = "Create a new shift")
     @PostMapping

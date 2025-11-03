@@ -15,7 +15,5 @@ public interface SeatBookingService {
 
     List<SeatBookingResponseDTO> getBookingsByEmployee(String employeeId);
 
-    SeatBookingResponseDTO updateBookingStatus(String allocationId, String newStatus);
-
     void deleteBooking(String allocationId);
 }

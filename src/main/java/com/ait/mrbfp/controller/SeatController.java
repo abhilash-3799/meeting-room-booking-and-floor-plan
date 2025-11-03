@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.SeatRequestDTO;
 import com.ait.mrbfp.dto.response.SeatResponseDTO;
-import com.ait.mrbfp.service.SeatService;
+import com.ait.mrbfp.service.SeatServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import java.util.List;
 @Tag(name = "Seat", description = "APIs for managing office seats")
 public class SeatController {
 
-    private final SeatService seatService;
+    private final SeatServiceImpl seatService;
 
     @Operation(summary = "Create a new seat")
     @PostMapping

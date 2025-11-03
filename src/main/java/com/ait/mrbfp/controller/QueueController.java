@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.QueueRequestDTO;
 import com.ait.mrbfp.dto.response.QueueResponseDTO;
-import com.ait.mrbfp.service.QueueService;
+import com.ait.mrbfp.service.QueueServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import java.util.List;
 @Tag(name = "Queue", description = "APIs for managing office queues")
 public class QueueController {
 
-    private final QueueService queueService;
+    private final QueueServiceImpl queueService;
 
     @Operation(summary = "Create a new queue")
     @PostMapping

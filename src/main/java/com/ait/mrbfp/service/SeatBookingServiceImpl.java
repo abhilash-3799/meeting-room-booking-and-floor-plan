@@ -1,11 +1,14 @@
-package com.ait.mrbfp.service.impl;
+package com.ait.mrbfp.service;
 
 import com.ait.mrbfp.dto.request.SeatBookingRequestDTO;
 import com.ait.mrbfp.dto.response.SeatBookingResponseDTO;
-import com.ait.mrbfp.entity.*;
+import com.ait.mrbfp.entity.Employee;
+import com.ait.mrbfp.entity.Seat;
+import com.ait.mrbfp.entity.SeatBooking;
 import com.ait.mrbfp.mapper.SeatBookingMapper;
-import com.ait.mrbfp.repository.*;
-import com.ait.mrbfp.service.SeatBookingService;
+import com.ait.mrbfp.repository.EmployeeRepository;
+import com.ait.mrbfp.repository.SeatBookingRepository;
+import com.ait.mrbfp.repository.SeatRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -66,28 +69,6 @@ public class SeatBookingServiceImpl implements SeatBookingService {
                 .stream()
                 .map(SeatBookingMapper::toResponse)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public SeatBookingResponseDTO updateBookingStatus(String allocationId, String newStatus) {
-        SeatBooking booking = bookingRepository.findById(allocationId)
-                .orElseThrow(() -> new RuntimeException("Booking not found: " + allocationId));
-
-        try {
-            booking.setStatus(SeatBooking.BookingStatus.valueOf(newStatus.toUpperCase()));
-        } catch (IllegalArgumentException ex) {
-            throw new RuntimeException("Invalid booking status: " + newStatus);
-        }
-
-        Seat seat = booking.getSeat();
-        if (booking.getStatus() == SeatBooking.BookingStatus.RELEASED) {
-            seat.setSeatStatus(Seat.SeatStatus.UNALLOCATED);
-            seat.setAvailable(true);
-            seatRepository.save(seat);
-        }
-
-        bookingRepository.save(booking);
-        return SeatBookingMapper.toResponse(booking);
     }
 
     @Override

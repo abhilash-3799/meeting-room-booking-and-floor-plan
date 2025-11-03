@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.TeamRequestDTO;
 import com.ait.mrbfp.dto.response.TeamResponseDTO;
-import com.ait.mrbfp.service.TeamService;
+import com.ait.mrbfp.service.TeamServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "Team Management", description = "APIs for managing teams")
 public class TeamController {
 
-    private final TeamService teamService;
+    private final TeamServiceImpl teamService;
 
     @Operation(summary = "Create a new team")
     @PostMapping

@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.SeatBookingRequestDTO;
 import com.ait.mrbfp.dto.response.SeatBookingResponseDTO;
-import com.ait.mrbfp.service.SeatBookingService;
+import com.ait.mrbfp.service.SeatBookingServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import java.util.List;
 @Tag(name = "Seat Booking", description = "APIs for allocating and releasing office seats")
 public class SeatBookingController {
 
-    private final SeatBookingService seatBookingService;
+    private final SeatBookingServiceImpl seatBookingService;
 
     @Operation(summary = "Allocate a seat to an employee")
     @PostMapping
@@ -42,14 +42,6 @@ public class SeatBookingController {
     @GetMapping("/employee/{employeeId}")
     public ResponseEntity<List<SeatBookingResponseDTO>> getByEmployee(@PathVariable String employeeId) {
         return ResponseEntity.ok(seatBookingService.getBookingsByEmployee(employeeId));
-    }
-
-    @Operation(summary = "Update booking status (ALLOCATED or RELEASED)")
-    @PutMapping("/{allocationId}/status/{status}")
-    public ResponseEntity<SeatBookingResponseDTO> updateStatus(
-            @PathVariable String allocationId,
-            @PathVariable String status) {
-        return ResponseEntity.ok(seatBookingService.updateBookingStatus(allocationId, status));
     }
 
     @Operation(summary = "Delete a seat booking")

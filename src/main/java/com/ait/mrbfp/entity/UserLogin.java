@@ -30,7 +30,7 @@ public class UserLogin {
     private Role role;
 
     @Column(nullable = false)
-    private boolean active = true;
+    private boolean isActive = true;
 
     public enum Role {
         EMPLOYEE, ADMIN, TEAM_LEAD

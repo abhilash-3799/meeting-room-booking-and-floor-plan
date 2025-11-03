@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.OfficeRequestDTO;
 import com.ait.mrbfp.dto.response.OfficeResponseDTO;
-import com.ait.mrbfp.service.OfficeService;
+import com.ait.mrbfp.service.OfficeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "Office Management", description = "APIs for managing office details")
 public class OfficeController {
 
-    private final OfficeService officeService;
+    private final OfficeServiceImpl officeService;
 
     @Operation(summary = "Create a new office")
     @PostMapping

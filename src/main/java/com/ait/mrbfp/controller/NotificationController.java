@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.NotificationRequestDTO;
 import com.ait.mrbfp.dto.response.NotificationResponseDTO;
-import com.ait.mrbfp.service.NotificationService;
+import com.ait.mrbfp.service.NotificationServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import java.util.List;
 @Tag(name = "Notification", description = "APIs for managing employee notifications")
 public class NotificationController {
 
-    private final NotificationService notificationService;
+    private final NotificationServiceImpl notificationService;
 
     @Operation(summary = "Create a new notification")
     @PostMapping

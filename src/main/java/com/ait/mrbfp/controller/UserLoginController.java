@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.UserLoginRequestDTO;
 import com.ait.mrbfp.dto.response.UserLoginResponseDTO;
-import com.ait.mrbfp.service.UserLoginService;
+import com.ait.mrbfp.service.UserLoginServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import java.util.List;
 @Tag(name = "User Login", description = "APIs for user authentication and management")
 public class UserLoginController {
 
-    private final UserLoginService userLoginService;
+    private final UserLoginServiceImpl userLoginService;
 
     @Operation(summary = "Create a new user login")
     @PostMapping

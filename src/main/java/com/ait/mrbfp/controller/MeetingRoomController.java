@@ -2,7 +2,7 @@ package com.ait.mrbfp.controller;
 
 import com.ait.mrbfp.dto.request.MeetingRoomRequestDTO;
 import com.ait.mrbfp.dto.response.MeetingRoomResponseDTO;
-import com.ait.mrbfp.service.MeetingRoomService;
+import com.ait.mrbfp.service.MeetingRoomServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -20,7 +20,7 @@ import java.util.List;
 @Tag(name = "Meeting Room", description = "APIs for managing meeting rooms")
 public class MeetingRoomController {
 
-    private final MeetingRoomService meetingRoomService;
+    private final MeetingRoomServiceImpl meetingRoomService;
 
     @Operation(summary = "Create a new meeting room")
     @PostMapping
