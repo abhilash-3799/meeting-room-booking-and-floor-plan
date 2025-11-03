@@ -1,8 +1,7 @@
-package com.ait.mrbfp.entity;
+package com.ait.mrb_fp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "employee")
@@ -10,20 +9,15 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @ToString(exclude = {"team", "office", "shift"})
 @EqualsAndHashCode(exclude = {"team", "office", "shift"})
 public class Employee {
 
     @Id
-    @Column(length = 50, nullable = false, unique = true)
-    private String employeeId;
+    @Column(length = 36, nullable = false)
 
-    @PrePersist
-    public void prePersist() {
-        if (this.employeeId == null || this.employeeId.isBlank()) {
-            this.employeeId = "EMP-" + UUID.randomUUID();
-        }
-    }
+    private String employeeId;
 
     @Column(length = 50, nullable = false, unique = true)
     private String employeeNumber;
@@ -53,13 +47,17 @@ public class Employee {
     @Column(length = 10, nullable = false)
     private EmployeeType employeeType = EmployeeType.REGULAR;
 
+
+
     @Column(nullable = false)
     private boolean teamLead = false;
 
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private boolean active = true;
+
+    @Column(nullable = false)
+    private boolean isActive = true;
 
     public enum EmployeeType {
         REGULAR, HYBRID, WFH
     }
 }
+
