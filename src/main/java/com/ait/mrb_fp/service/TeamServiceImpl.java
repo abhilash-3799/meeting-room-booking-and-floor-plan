@@ -39,7 +39,7 @@ public class TeamServiceImpl implements TeamService {
                 throw new DuplicateResourceException("Team already exists: " + dto.getTeamName());
 
             Team team = TeamMapper.toEntity(dto);
-            team.setTeamId("TEAM" + System.currentTimeMillis());
+            //team.setTeamId("TEAM" + System.currentTimeMillis());
             team.setActive(true);
 
             Team saved = teamRepository.save(team);

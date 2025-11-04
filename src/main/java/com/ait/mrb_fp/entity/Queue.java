@@ -17,7 +17,7 @@ public class Queue {
 
     @Id
 
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String queueId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,5 +35,12 @@ public class Queue {
 
     @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats;
+
+    @PrePersist
+    public void generateId() {
+        if (this.queueId == null) {
+            this.queueId = "QUEUE-" + java.util.UUID.randomUUID();
+        }
+    }
 }
 

@@ -15,7 +15,7 @@ import lombok.*;
 public class UserLogin {
 
     @Id
-    @Column(length = 10)
+    @Column(length = 50)
     private String loginId;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -37,5 +37,12 @@ public class UserLogin {
 
     public enum Role {
         employee, admin, team_lead
+    }
+
+    @PrePersist
+    public void generateId() {
+        if (this.loginId == null) {
+            this.loginId = "LOGIN-" + java.util.UUID.randomUUID();
+        }
     }
 }

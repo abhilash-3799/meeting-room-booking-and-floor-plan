@@ -22,11 +22,6 @@ public class UserLoginController {
     private final UserLoginService userLoginService;
 
     @Operation(summary = "Authenticate user login", description = "Validates username and password, returns user details if successful")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Login processed successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid credentials provided"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized access")
-    })
     @PostMapping
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest) {
         log.info("Login attempt for username: {}", loginRequest.getUsername());

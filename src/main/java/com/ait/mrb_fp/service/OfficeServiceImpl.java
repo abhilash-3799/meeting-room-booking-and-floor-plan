@@ -47,7 +47,7 @@ public class OfficeServiceImpl implements OfficeService {
             }
 
             Office office = OfficeMapper.toEntity(dto);
-            office.setOfficeId("OFF" + System.currentTimeMillis());
+            //office.setOfficeId("OFF" + System.currentTimeMillis());
             office.setActive(true);
 
             log.info("Saving new office to database: {}", office.getOfficeName());

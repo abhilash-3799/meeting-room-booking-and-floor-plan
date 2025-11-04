@@ -24,11 +24,6 @@ public class TeamController {
     private final TeamService teamService;
 
     @Operation(summary = "Create a new team", description = "Adds a new team")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Team created successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid input provided"),
-            @ApiResponse(responseCode = "409", description = "Duplicate team name found")
-    })
     @PostMapping
     public ResponseEntity<TeamResponseDTO> createTeam(@RequestBody TeamRequestDTO dto) {
         log.info("Creating new team: {}", dto.getTeamName());
@@ -36,10 +31,6 @@ public class TeamController {
     }
 
     @Operation(summary = "Get team by ID", description = "Fetch team details using ID")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Team retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Team not found")
-    })
     @GetMapping("/{id}")
     public ResponseEntity<TeamResponseDTO> getTeamById(@PathVariable String id) {
         log.info("Fetching team with ID: {}", id);
@@ -54,10 +45,6 @@ public class TeamController {
     }
 
     @Operation(summary = "Update a team", description = "Update team details by ID")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Team updated successfully"),
-            @ApiResponse(responseCode = "404", description = "Team not found")
-    })
     @PutMapping("/{id}")
     public ResponseEntity<TeamResponseDTO> updateTeam(@PathVariable String id, @RequestBody TeamRequestDTO dto) {
         log.info("Updating team with ID: {}", id);
@@ -65,10 +52,6 @@ public class TeamController {
     }
 
     @Operation(summary = "Deactivate a team", description = "Soft delete (set isActive = false)")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Team deactivated successfully"),
-            @ApiResponse(responseCode = "404", description = "Team not found")
-    })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deactivateTeam(@PathVariable String id) {
         log.warn("Deactivating team with ID: {}", id);

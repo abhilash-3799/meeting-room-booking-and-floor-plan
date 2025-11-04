@@ -15,7 +15,7 @@ import lombok.*;
 public class Seat {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String seatId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,6 +45,13 @@ public class Seat {
 
     public enum SeatStatus {
         UNALLOCATED, ALLOCATED
+    }
+
+    @PrePersist
+    public void generateId() {
+        if (this.seatId == null) {
+            this.seatId = "SEAT-" + java.util.UUID.randomUUID();
+        }
     }
 }
 

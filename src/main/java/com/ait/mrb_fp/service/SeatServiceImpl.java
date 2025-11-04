@@ -46,7 +46,7 @@ public class SeatServiceImpl implements SeatService {
                     : null;
 
             Seat seat = SeatMapper.toEntity(dto, office, team, queue);
-            seat.setSeatId("SEAT" + System.currentTimeMillis());
+            //seat.setSeatId("SEAT" + System.currentTimeMillis());
 
             seatRepo.save(seat);
             log.info("Seat created successfully with ID: {}", seat.getSeatId());

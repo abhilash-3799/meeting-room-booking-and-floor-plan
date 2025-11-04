@@ -24,11 +24,6 @@ public class ShiftController {
     private final ShiftService shiftService;
 
     @Operation(summary = "Create a new shift", description = "Add a new shift")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Shift created successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid shift data provided"),
-            @ApiResponse(responseCode = "409", description = "Duplicate shift name")
-    })
     @PostMapping
     public ResponseEntity<ShiftResponseDTO> createShift(@RequestBody ShiftRequestDTO dto) {
         log.info("Creating new shift with name: {}", dto.getShiftName());
@@ -36,10 +31,6 @@ public class ShiftController {
     }
 
     @Operation(summary = "Get shift by ID", description = "Fetch a shift using its ID")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Shift retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Shift not found")
-    })
     @GetMapping("/{id}")
     public ResponseEntity<ShiftResponseDTO> getShiftById(@PathVariable String id) {
         log.info("Fetching shift with ID: {}", id);
@@ -54,10 +45,6 @@ public class ShiftController {
     }
 
     @Operation(summary = "Update shift by ID", description = "Update an existing shift’s details")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Shift updated successfully"),
-            @ApiResponse(responseCode = "404", description = "Shift not found")
-    })
     @PutMapping("/{id}")
     public ResponseEntity<ShiftResponseDTO> updateShift(@PathVariable String id, @RequestBody ShiftRequestDTO dto) {
         log.info("Updating shift with ID: {}", id);
@@ -65,10 +52,6 @@ public class ShiftController {
     }
 
     @Operation(summary = "Deactivate shift", description = "Soft delete a shift (mark inactive)")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Shift deactivated successfully"),
-            @ApiResponse(responseCode = "404", description = "Shift not found")
-    })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deactivateShift(@PathVariable String id) {
         log.warn("Deactivating shift with ID: {}", id);

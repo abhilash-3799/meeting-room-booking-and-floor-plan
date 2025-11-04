@@ -16,7 +16,7 @@ import java.util.List;
 public class Office {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String officeId;
 
     @Column(length = 100, nullable = false, unique = true)
@@ -42,5 +42,12 @@ public class Office {
 
     @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats;
+
+    @PrePersist
+    public void generateId() {
+        if (this.officeId == null) {
+            this.officeId = "OFFICE-" + java.util.UUID.randomUUID();
+        }
+    }
 }
 

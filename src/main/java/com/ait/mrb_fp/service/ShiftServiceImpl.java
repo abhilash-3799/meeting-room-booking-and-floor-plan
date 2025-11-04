@@ -38,7 +38,7 @@ public class ShiftServiceImpl implements ShiftService {
             if (exists) throw new DuplicateResourceException("Shift already exists: " + dto.getShiftName());
 
             Shift shift = ShiftMapper.toEntity(dto);
-            shift.setShiftId("SFT" + System.currentTimeMillis());
+            //shift.setShiftId("SFT" + System.currentTimeMillis());
             shift.setActive(true);
 
             Shift saved = shiftRepository.save(shift);

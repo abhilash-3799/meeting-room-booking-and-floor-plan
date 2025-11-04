@@ -73,7 +73,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
 
             Employee employee = EmployeeMapper.toEntity(dto, team, office, shift);
-            employee.setEmployeeId("EMP" + System.currentTimeMillis());
 
             Employee saved = employeeRepository.save(employee);
             log.info("Employee created successfully with ID: {}", saved.getEmployeeId());

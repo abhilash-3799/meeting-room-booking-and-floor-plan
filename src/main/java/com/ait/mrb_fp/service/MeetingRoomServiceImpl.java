@@ -63,7 +63,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
                     .orElseThrow(() -> new RuntimeException("Office not found: " + request.getOfficeId()));
 
             MeetingRoom meetingRoom = MeetingRoomMapper.toEntity(request, office);
-            meetingRoom.setRoomId("MR" + System.currentTimeMillis());
+            //meetingRoom.setRoomId("MR" + System.currentTimeMillis());
             meetingRoomRepository.save(meetingRoom);
 
             log.info("Meeting room created successfully with ID: {}", meetingRoom.getRoomId());

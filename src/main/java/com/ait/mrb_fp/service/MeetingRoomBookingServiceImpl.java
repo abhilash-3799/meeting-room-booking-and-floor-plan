@@ -98,7 +98,7 @@ public class MeetingRoomBookingServiceImpl implements MeetingRoomBookingService 
             }
 
             MeetingRoomBooking booking = MeetingRoomBookingMapper.toEntity(request, room, bookedBy);
-            booking.setMeetingId("MR" + System.currentTimeMillis());
+            //booking.setMeetingId("MR" + System.currentTimeMillis());
             booking.setStatus(MeetingRoomBooking.MeetingStatus.BOOKED);
             booking.setActive(true);
 
