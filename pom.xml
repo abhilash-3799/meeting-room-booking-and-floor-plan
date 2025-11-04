@@ -9,10 +9,17 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ait</groupId>
+<<<<<<< HEAD
+    <artifactId>mrb-fp</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>MRB &amp; FP</name>
+    <description>meeting room booking and floor plan project</description>
+=======
     <artifactId>mrbfp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mrbfp</name>
     <description>Meeting Room Booking and Floor Plan Project</description>
+>>>>>>> 418331d1244f1822cd31e0584f8d40acd132a4ca
     <url/>
     <licenses>
         <license/>
@@ -34,6 +41,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+<<<<<<< HEAD
+=======
         <!--		<dependency>-->
         <!--			<groupId>org.springframework.boot</groupId>-->
         <!--			<artifactId>spring-boot-starter-security</artifactId>-->
@@ -42,6 +51,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+>>>>>>> 418331d1244f1822cd31e0584f8d40acd132a4ca
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -69,15 +79,22 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+<<<<<<< HEAD
+=======
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
+>>>>>>> 418331d1244f1822cd31e0584f8d40acd132a4ca
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.8.4</version>
         </dependency>
+<<<<<<< HEAD
+
+
+=======
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
@@ -89,6 +106,7 @@
             <version>1.6.2</version>
             <scope>provided</scope>
         </dependency>
+>>>>>>> 418331d1244f1822cd31e0584f8d40acd132a4ca
     </dependencies>
 
     <build>
@@ -99,11 +117,14 @@
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
+<<<<<<< HEAD
+=======
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>1.6.2</version>
                         </path>
                         <path>
+>>>>>>> 418331d1244f1822cd31e0584f8d40acd132a4ca
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </path>
@@ -125,4 +146,8 @@
         </plugins>
     </build>
 
+<<<<<<< HEAD
 </project>
+=======
+</project>
+>>>>>>> 418331d1244f1822cd31e0584f8d40acd132a4ca
