@@ -13,11 +13,7 @@
         <file>${LOG_DIR}/mrbfp-app.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_DIR}/mrbfp-app-%d{yyyy-MM-dd}.log</fileNamePattern>
-<<<<<<< HEAD
             <maxHistory>7</maxHistory>
-=======
-            <maxHistory>30</maxHistory>
->>>>>>> 418331d1244f1822cd31e0584f8d40acd132a4ca
         </rollingPolicy>
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
