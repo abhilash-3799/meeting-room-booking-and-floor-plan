@@ -15,7 +15,6 @@ public class EmployeeResponseDTO {
     private String email;
     private String teamName;
     private String officeName;
-    private String shiftName;
     private String employeeType;
     private boolean teamLead;
     private boolean isActive;
