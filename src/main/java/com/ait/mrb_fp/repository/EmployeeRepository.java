@@ -3,7 +3,6 @@ package com.ait.mrb_fp.repository;
 import com.ait.mrb_fp.entity.Employee;
 import com.ait.mrb_fp.entity.Team;
 import com.ait.mrb_fp.entity.Office;
-import com.ait.mrb_fp.entity.Shift;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +19,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<Employee> findByIsActive(boolean isActive);
     List<Employee> findByTeam(Team team);
     List<Employee> findByOffice(Office office);
-    List<Employee> findByShift(Shift shift);
     List<Employee> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String firstName, String lastName);
     List<Employee> findByEmployeeType(Employee.EmployeeType type);
 

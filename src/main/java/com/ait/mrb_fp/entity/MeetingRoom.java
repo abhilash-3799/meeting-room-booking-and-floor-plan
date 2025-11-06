@@ -3,6 +3,7 @@ package com.ait.mrb_fp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "meeting_room")
@@ -16,8 +17,15 @@ import java.util.List;
 public class MeetingRoom {
 
     @Id
-    @Column(length = 50, nullable = false)
+    @Column(length = 45, nullable = false)
     private String roomId;
+    @PrePersist
+    public void generateId() {
+        if (this.roomId == null || this.roomId.isBlank()) {
+
+            this.roomId = "MR-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
@@ -50,14 +58,6 @@ public class MeetingRoom {
     public enum MeetingRoomStatus{
         AVAILABLE, NOT_AVAILABLE
     }
-
-    @PrePersist
-    public void generateId() {
-        if (this.roomId == null) {
-            this.roomId = "MEETINGROOM-" + java.util.UUID.randomUUID();
-        }
-    }
-
 }
 
 

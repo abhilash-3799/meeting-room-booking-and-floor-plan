@@ -5,13 +5,12 @@ import com.ait.mrb_fp.dto.response.EmployeeResponseDTO;
 import com.ait.mrb_fp.entity.Employee;
 import com.ait.mrb_fp.entity.Office;
 import com.ait.mrb_fp.entity.Team;
-import com.ait.mrb_fp.entity.Shift;
 
 public class EmployeeMapper {
 
     private EmployeeMapper() {}
 
-    public static Employee toEntity(EmployeeRequestDTO request, Team team, Office office, Shift shift) {
+    public static Employee toEntity(EmployeeRequestDTO request, Team team, Office office) {
         Employee e = new Employee();
         e.setEmployeeNumber(request.getEmployeeNumber());
         e.setFirstName(request.getFirstName());
@@ -19,7 +18,6 @@ public class EmployeeMapper {
         e.setEmail(request.getEmail());
         e.setTeam(team);
         e.setOffice(office);
-        e.setShift(shift);
         e.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
         e.setTeamLead(request.isTeamLead());
         e.setActive(true);
@@ -35,14 +33,13 @@ public class EmployeeMapper {
                 .email(e.getEmail())
                 .teamName(e.getTeam() != null ? e.getTeam().getTeamName() : null)
                 .officeName(e.getOffice() != null ? e.getOffice().getOfficeName() : null)
-                .shiftName(e.getShift() != null ? e.getShift().getShiftName() : null)
                 .employeeType(e.getEmployeeType().name())
                 .teamLead(e.isTeamLead())
                 .isActive(e.isActive())
                 .build();
     }
 
-    public static void updateEntity(Employee existing, EmployeeRequestDTO request, Team team, Office office, Shift shift) {
+    public static void updateEntity(Employee existing, EmployeeRequestDTO request, Team team, Office office) {
         existing.setEmployeeNumber(request.getEmployeeNumber());
 
         existing.setFirstName(request.getFirstName());
@@ -50,7 +47,6 @@ public class EmployeeMapper {
         existing.setEmail(request.getEmail());
         existing.setTeam(team);
         existing.setOffice(office);
-        existing.setShift(shift);
         existing.setEmployeeType(Employee.EmployeeType.valueOf(request.getEmployeeType()));
         existing.setTeamLead(request.isTeamLead());
 

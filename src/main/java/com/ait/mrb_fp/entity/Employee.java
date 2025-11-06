@@ -12,18 +12,20 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"team", "office", "shift"})
-@EqualsAndHashCode(exclude = {"team", "office", "shift"})
+@ToString(exclude = {"team", "office"})
+@EqualsAndHashCode(exclude = {"team", "office"})
 public class Employee {
 
     @Id
-    @Column(length = 50, nullable = false)
+    @Column(length = 45, nullable = false)
+
     private String employeeId;
 
     @PrePersist
     public void generateId() {
         if (this.employeeId == null || this.employeeId.isBlank()) {
-            this.employeeId = "EMP-" + UUID.randomUUID();
+
+            this.employeeId = "EMP-" + UUID.randomUUID().toString().substring(0, 4);
         }
     }
 
@@ -47,17 +49,12 @@ public class Employee {
     @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shift_id")
-    private Shift shift;
-
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
     private EmployeeType employeeType = EmployeeType.REGULAR;
 
     @Column(nullable = false)
     private boolean teamLead = false;
-
 
     @Column(nullable = false)
     private boolean isActive = true;

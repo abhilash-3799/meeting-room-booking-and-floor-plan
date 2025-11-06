@@ -3,6 +3,7 @@ package com.ait.mrb_fp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "team")
@@ -16,8 +17,15 @@ import java.util.List;
 public class Team {
 
     @Id
-    @Column(length = 50, nullable = false)
+    @Column(length = 45, nullable = false)
     private String teamId;
+    @PrePersist
+    public void generateId() {
+        if (this.teamId == null || this.teamId.isBlank()) {
+
+            this.teamId = "TEAM-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     @Column(length = 100, nullable = false, unique = true)
     private String teamName;
@@ -30,13 +38,6 @@ public class Team {
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
-
-    @PrePersist
-    public void generateId() {
-        if (this.teamId == null) {
-            this.teamId = "TEAM-" + java.util.UUID.randomUUID();
-        }
-    }
 }
 
 
