@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * ⚠️ Thrown when a database transaction fails or rolls back unexpectedly.
+ *  Thrown when a database transaction fails or rolls back unexpectedly.
  * Example: Saving employee + user_login together fails partially.
  */
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -14,7 +14,7 @@ import java.time.LocalTime;
 public class Shift {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String shiftId;
 
     @Column(length = 100, nullable = false, unique = true)
@@ -31,5 +31,12 @@ public class Shift {
 
     @Column(nullable = false)
     private boolean isActive = true;
+
+    @PrePersist
+    public void generateId() {
+        if (this.shiftId == null) {
+            this.shiftId = "SHIFT-" + java.util.UUID.randomUUID();
+        }
+    }
 }
 

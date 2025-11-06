@@ -1,7 +1,7 @@
 package com.ait.mrb_fp.exception;
 
 /**
- * ⚠️ Thrown when JWT token is expired, malformed, or invalid.
+ *  Thrown when JWT token is expired, malformed, or invalid.
  * Example: Accessing protected endpoint with expired token.
  */
 public class JwtTokenExpiredException extends UnauthorizedException {

@@ -16,7 +16,7 @@ import jakarta.persistence.*;
 public class SeatBooking {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String allocationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,6 +39,12 @@ public class SeatBooking {
 
     public enum BookingStatus {
         ALLOCATED, RELEASED
+    }
+    @PrePersist
+    public void generateId() {
+        if (this.allocationId == null) {
+            this.allocationId = "SEATBOOK-" + java.util.UUID.randomUUID();
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 package com.ait.mrb_fp.exception;
 
 /**
- * ⚠️ Thrown when the shift ID provided does not exist.
+ *  Thrown when the shift ID provided does not exist.
  * Example: Setting employee shift to "S999" → not found.
  */
 public class ShiftNotFoundException extends ResourceNotFoundException {

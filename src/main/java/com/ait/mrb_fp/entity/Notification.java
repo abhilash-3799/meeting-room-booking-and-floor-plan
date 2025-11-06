@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Notification {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String notificationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,5 +35,12 @@ public class Notification {
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @PrePersist
+    public void generateId() {
+        if (this.notificationId == null) {
+            this.notificationId = "NOTI-" + java.util.UUID.randomUUID();
+        }
+    }
 }
 

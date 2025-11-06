@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * ⚠️ Thrown when the client sends invalid or incomplete data.
+ * Thrown when the client sends invalid or incomplete data.
  * Example: Missing required fields or invalid input formats in request body.
  */
 @ResponseStatus(HttpStatus.BAD_REQUEST)

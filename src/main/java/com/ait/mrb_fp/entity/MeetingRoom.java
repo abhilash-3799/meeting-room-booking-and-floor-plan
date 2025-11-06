@@ -16,7 +16,7 @@ import java.util.List;
 public class MeetingRoom {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String roomId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -50,6 +50,14 @@ public class MeetingRoom {
     public enum MeetingRoomStatus{
         AVAILABLE, NOT_AVAILABLE
     }
+
+    @PrePersist
+    public void generateId() {
+        if (this.roomId == null) {
+            this.roomId = "MEETINGROOM-" + java.util.UUID.randomUUID();
+        }
+    }
+
 }
 
 

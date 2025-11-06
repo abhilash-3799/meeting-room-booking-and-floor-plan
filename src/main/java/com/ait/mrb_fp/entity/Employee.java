@@ -3,6 +3,8 @@ package com.ait.mrb_fp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "employee")
 @Getter
@@ -15,8 +17,15 @@ import lombok.*;
 public class Employee {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String employeeId;
+
+    @PrePersist
+    public void generateId() {
+        if (this.employeeId == null || this.employeeId.isBlank()) {
+            this.employeeId = "EMP-" + UUID.randomUUID();
+        }
+    }
 
     @Column(length = 50, nullable = false, unique = true)
     private String employeeNumber;
@@ -47,7 +56,8 @@ public class Employee {
     private EmployeeType employeeType = EmployeeType.REGULAR;
 
     @Column(nullable = false)
-    private boolean TeamLead = false;
+    private boolean teamLead = false;
+
 
     @Column(nullable = false)
     private boolean isActive = true;

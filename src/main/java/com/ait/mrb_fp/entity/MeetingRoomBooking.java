@@ -50,6 +50,14 @@ public class MeetingRoomBooking {
     public enum MeetingStatus {
         BOOKED, CANCELLED, COMPLETED
     }
+
+    @PrePersist
+    public void generateId() {
+        if (this.meetingId == null) {
+            this.meetingId = "MRB-" + java.util.UUID.randomUUID();
+        }
+    }
+
 }
 
 

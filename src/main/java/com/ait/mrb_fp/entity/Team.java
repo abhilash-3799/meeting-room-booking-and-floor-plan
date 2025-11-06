@@ -16,7 +16,7 @@ import java.util.List;
 public class Team {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 50, nullable = false)
     private String teamId;
 
     @Column(length = 100, nullable = false, unique = true)
@@ -30,6 +30,13 @@ public class Team {
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
+
+    @PrePersist
+    public void generateId() {
+        if (this.teamId == null) {
+            this.teamId = "TEAM-" + java.util.UUID.randomUUID();
+        }
+    }
 }
 
 
