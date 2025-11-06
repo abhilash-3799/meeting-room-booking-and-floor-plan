@@ -70,7 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
 
             Employee employee = EmployeeMapper.toEntity(dto, team, office, shift);
-            employee.setEmployeeId("EMP" + System.currentTimeMillis());
+
 
             Employee saved = employeeRepository.save(employee);
             return EmployeeMapper.toResponse(saved);
@@ -110,56 +110,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-//    @Override
-//    public EmployeeResponseDTO updateEmployee(String employeeId, EmployeeRequestDTO dto) {
-//        try {
-//            if (employeeId == null || employeeId.isBlank())
-//                throw new MissingRequestParameterException("Employee ID is required.");
-//
-//            Employee existing = employeeRepository.findById(employeeId)
-//                    .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with ID: " + employeeId));
-//
-//            Employee duplicate = employeeRepository.findByEmail(dto.getEmail());
-//            if (duplicate != null && !duplicate.getEmployeeId().equals(employeeId)) {
-//                throw new EmailAlreadyExistsException("Email already exists: " + dto.getEmail());
-//            }
-//
-//            Team team = teamRepository.findById(dto.getTeamId())
-//                    .orElseThrow(() -> new EmployeeNotFoundException("Team not found with ID: " + dto.getTeamId()));
-//            Office office = officeRepository.findById(dto.getOfficeId())
-//                    .orElseThrow(() -> new EmployeeNotFoundException("Office not found with ID: " + dto.getOfficeId()));
-//
-//            Shift shift = null;
-//            if (dto.getShiftId() != null) {
-//                shift = shiftRepository.findById(dto.getShiftId())
-//                        .orElseThrow(() -> new EmployeeNotFoundException("Shift not found with ID: " + dto.getShiftId()));
-//            }
-//
-//            existing.setFirstName(dto.getFirstName());
-//            existing.setLastName(dto.getLastName());
-//            existing.setEmail(dto.getEmail());
-//            existing.setTeam(team);
-//            existing.setOffice(office);
-//            existing.setShift(shift);
-//            existing.setTeamLead(dto.isTeamLead());
-//
-//            try {
-//                existing.setEmployeeType(Employee.EmployeeType.valueOf(dto.getEmployeeType()));
-//            } catch (IllegalArgumentException ex) {
-//                throw new BadRequestException("Invalid employee type: " + dto.getEmployeeType());
-//            }
-//
-//            return EmployeeMapper.toResponse(employeeRepository.save(existing));
-//
-//        } catch (DataAccessException ex) {
-//            throw new DatabaseException("Error updating employee: " + ex.getMessage());
-//        } catch (TransactionSystemException ex) {
-//            throw new TransactionFailedException("Transaction failed while updating employee.");
-//        } catch (Exception ex) {
-//            throw new InternalServerException("Unexpected error while updating employee: " + ex.getMessage());
-//        }
-//    }
-//
+
 
     @Override
     public EmployeeResponseDTO updateEmployee(String employeeId, EmployeeRequestDTO dto) {
@@ -171,13 +122,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + employeeId));
 
 
-        // Check for duplicate email
+
         Employee duplicate = employeeRepository.findByEmail(dto.getEmail());
         if (duplicate != null && !duplicate.getEmployeeId().equals(employeeId)) {
             throw new EmailAlreadyExistsException("Email already exists: " + dto.getEmail());
         }
 
-        // Load related entities
+
         Team team = teamRepository.findById(dto.getTeamId())
                 .orElseThrow(() -> new ResourceNotFoundException("Team not found with ID: " + dto.getTeamId()));
 
@@ -190,10 +141,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                     .orElseThrow(() -> new ResourceNotFoundException("Shift not found with ID: " + dto.getShiftId()));
         }
 
-        // Update entity using mapper (similar to SeatMapper.updateEntity)
+
         EmployeeMapper.updateEntity(existing, dto, team, office, shift);
 
-        // Save and return response
+
 
 
         existing.setEmployeeId(employeeId);

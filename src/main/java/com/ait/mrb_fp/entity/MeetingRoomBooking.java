@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "meeting_booking")
@@ -17,8 +18,17 @@ import java.time.LocalDateTime;
 public class MeetingRoomBooking {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 45, nullable = false)
     private String meetingId;
+
+
+    @PrePersist
+    public void prePersist() {
+        if (this.meetingId == null || this.meetingId.isBlank()) {
+
+            this.meetingId = "MRB-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false)

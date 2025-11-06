@@ -49,34 +49,6 @@ public class MeetingRoomBookingServiceImpl implements MeetingRoomBookingService 
     }
 
 
-//    @Override
-//    public MeetingRoomBookingResponseDTO create(MeetingRoomBookingRequestDTO request) {
-//        MeetingRoom room = roomRepository.findById(request.getRoomId())
-//                .orElseThrow(() -> new RuntimeException("Meeting room not found: " + request.getRoomId()));
-//
-//        Employee bookedBy = employeeRepository.findById(request.getBookedByEmployeeId())
-//                .orElseThrow(() -> new RuntimeException("Employee not found: " + request.getBookedByEmployeeId()));
-//
-//
-//        if (!bookedBy.isTeamLead()) {
-//            throw new RuntimeException("Only Team Lead employees are allowed to book meeting rooms.");
-//        }
-//
-//
-//        boolean alreadyBookedThisRoom = bookingRepository.existsByBookedBy_EmployeeIdAndRoom_RoomId(
-//                bookedBy.getEmployeeId(), room.getRoomId()
-//        );
-//
-//        if (alreadyBookedThisRoom) {
-//            throw new RuntimeException("Team Lead has already booked this meeting room.");
-//        }
-//        MeetingRoomBooking booking = MeetingRoomBookingMapper.toEntity(request, room, bookedBy);
-//        booking.setMeetingId("MR" + System.currentTimeMillis());
-//        bookingRepository.save(booking);
-//
-//        return MeetingRoomBookingMapper.toResponse(booking);
-//    }
-//
 
     @Override
     public MeetingRoomBookingResponseDTO create(MeetingRoomBookingRequestDTO request) {
@@ -116,7 +88,7 @@ public class MeetingRoomBookingServiceImpl implements MeetingRoomBookingService 
 
 
         MeetingRoomBooking booking = MeetingRoomBookingMapper.toEntity(request, room, bookedBy);
-        booking.setMeetingId("MR" + System.currentTimeMillis());
+
         booking.setStatus(MeetingRoomBooking.MeetingStatus.BOOKED);
         booking.setActive(true);
 

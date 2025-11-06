@@ -42,7 +42,7 @@ public class TeamServiceImpl implements TeamService {
             }
 
             Team team = TeamMapper.toEntity(dto);
-            team.setTeamId("TEAM" + System.currentTimeMillis());
+
             team.setActive(true);
 
             return TeamMapper.toResponse(teamRepository.save(team));

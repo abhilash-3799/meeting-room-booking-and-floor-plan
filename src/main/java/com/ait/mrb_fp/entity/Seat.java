@@ -3,6 +3,8 @@ package com.ait.mrb_fp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "seat")
 @Getter
@@ -15,8 +17,15 @@ import lombok.*;
 public class Seat {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 45, nullable = false)
     private String seatId;
+    @PrePersist
+    public void prePersist() {
+        if (this.seatId == null || this.seatId.isBlank()) {
+
+            this.seatId= "SEAT-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)

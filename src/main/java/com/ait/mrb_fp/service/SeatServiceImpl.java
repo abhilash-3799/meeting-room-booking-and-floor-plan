@@ -34,7 +34,7 @@ public class SeatServiceImpl implements SeatService {
         Team team = teamRepo.findById(dto.getAssignedTeamId()).orElse(null);
         Queue queue = queueRepo.findById(dto.getQueueId()).orElse(null);
         Seat seat = SeatMapper.toEntity(dto, office, team, queue);
-        seat.setSeatId("SEAT" + System.currentTimeMillis());
+
 
         seatRepo.save(seat);
         return SeatMapper.toResponse(seat);

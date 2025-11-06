@@ -3,6 +3,7 @@ package com.ait.mrb_fp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "office")
@@ -16,8 +17,15 @@ import java.util.List;
 public class Office {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 45, nullable = false)
     private String officeId;
+    @PrePersist
+    public void prePersist() {
+        if (this.officeId == null || this.officeId.isBlank()) {
+
+            this.officeId = "OFFICE-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     @Column(length = 100, nullable = false, unique = true)
     private String officeName;

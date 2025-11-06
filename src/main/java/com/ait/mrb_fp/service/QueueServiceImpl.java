@@ -31,7 +31,7 @@ public class QueueServiceImpl implements QueueService {
         Queue queue = QueueMapper.toEntity(dto, office);
 
 
-        queue.setQueueId("Q" + System.currentTimeMillis());
+
         queueRepo.save(queue);
         return QueueMapper.toResponse(queue);
     }

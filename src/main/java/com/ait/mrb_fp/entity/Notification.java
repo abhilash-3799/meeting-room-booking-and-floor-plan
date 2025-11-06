@@ -3,6 +3,7 @@ package com.ait.mrb_fp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "notification")
@@ -16,8 +17,15 @@ import java.time.LocalDateTime;
 public class Notification {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 45, nullable = false)
     private String notificationId;
+    @PrePersist
+    public void prePersist() {
+        if (this.notificationId == null || this.notificationId.isBlank()) {
+
+            this.notificationId = "N-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)

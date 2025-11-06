@@ -46,7 +46,7 @@ public class ShiftServiceImpl implements ShiftService {
             }
 
             Shift shift = ShiftMapper.toEntity(dto);
-            shift.setShiftId("SFT" + System.currentTimeMillis());
+
             shift.setActive(true);
 
             return ShiftMapper.toResponse(shiftRepository.save(shift));

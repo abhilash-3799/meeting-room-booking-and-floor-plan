@@ -3,6 +3,7 @@ package com.ait.mrb_fp.entity;
 import jakarta.persistence.*;
         import lombok.*;
         import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "seat_booking")
@@ -16,8 +17,15 @@ import jakarta.persistence.*;
 public class SeatBooking {
 
     @Id
-    @Column(length = 36, nullable = false)
+    @Column(length = 45, nullable = false)
     private String allocationId;
+    @PrePersist
+    public void prePersist() {
+        if (this.allocationId == null || this.allocationId.isBlank()) {
+
+            this.allocationId= "SB-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id", nullable = false)
