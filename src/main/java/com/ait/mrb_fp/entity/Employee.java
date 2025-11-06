@@ -3,8 +3,6 @@ package com.ait.mrb_fp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "employee")
 @Getter
@@ -16,30 +14,10 @@ import java.util.UUID;
 @EqualsAndHashCode(exclude = {"team", "office", "shift"})
 public class Employee {
 
-//    @Id
-//    @Column(length = 45, nullable = false)
-//    private String employeeId;
-//    @PrePersist
-//    public void prePersist() {
-//        if (this.employeeId == null || this.employeeId.isBlank()) {
-//            this.employeeId = "EMP-" + UUID.randomUUID();
-//        }
-//    }
-
-
     @Id
-    @Column(length = 45, nullable = false)
+    @Column(length = 36, nullable = false)
+
     private String employeeId;
-
-
-    @PrePersist
-    public void prePersist() {
-        if (this.employeeId == null || this.employeeId.isBlank()) {
-
-            this.employeeId = "EMP-" + UUID.randomUUID().toString().substring(0, 4);
-        }
-    }
-
 
     @Column(length = 50, nullable = false, unique = true)
     private String employeeNumber;

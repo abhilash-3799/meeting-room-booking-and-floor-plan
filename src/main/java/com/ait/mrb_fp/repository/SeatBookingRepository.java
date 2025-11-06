@@ -17,21 +17,9 @@ public interface SeatBookingRepository extends JpaRepository<SeatBooking, String
 
     boolean existsByEmployee_EmployeeId(String employeeId);
 
-
     boolean existsByEmployee_EmployeeIdAndSeat_SeatId(String employeeId, String seatId);
 
     boolean existsByEmployee_EmployeeIdAndSeat_SeatIdAndAllocationDate(String employeeId, String seatId, LocalDate localDate);
-
-
-
-//    @Query("SELECT CASE WHEN COUNT(sb) > 0 THEN TRUE ELSE FALSE END " +
-//            "FROM SeatBooking sb WHERE sb.seat.seatId = :seatId AND FUNCTION('DATE', sb.allocationDate) = :date")
-//    boolean existsBySeatAndDate(@Param("seatId") String seatId, @Param("date") LocalDate date);
-
-
-
-
-
 
     boolean existsBySeat_SeatIdAndAllocationDateAndEmployee_EmployeeIdNot(
             String seatId,
@@ -44,8 +32,6 @@ public interface SeatBookingRepository extends JpaRepository<SeatBooking, String
             String seatId,
             LocalDateTime allocationDate
     );
-
-
 
     @Query("SELECT CASE WHEN COUNT(sb) > 0 THEN TRUE ELSE FALSE END " +
             "FROM SeatBooking sb WHERE sb.seat.seatId = :seatId " +
