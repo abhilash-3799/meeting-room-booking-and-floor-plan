@@ -42,7 +42,7 @@ public class UserLogin {
     @PrePersist
     public void generateId() {
         if (this.loginId == null) {
-            this.loginId = "LOGIN-" + java.util.UUID.randomUUID();
+            this.loginId = "LOGIN-" + java.util.UUID.randomUUID().toString().substring(0, 4);
         }
     }
 }
