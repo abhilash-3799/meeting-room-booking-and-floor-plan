@@ -58,7 +58,6 @@ public class Employee {
     @Column(nullable = false)
     private boolean teamLead = false;
 
-
     @Column(nullable = false)
     private boolean isActive = true;
 
