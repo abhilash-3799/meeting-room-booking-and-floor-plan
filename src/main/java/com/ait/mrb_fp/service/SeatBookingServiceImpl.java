@@ -1,4 +1,3 @@
-
 package com.ait.mrb_fp.service;
 
 import com.ait.mrb_fp.dto.request.SeatBookingRequestDTO;
@@ -36,10 +35,6 @@ public class SeatBookingServiceImpl implements SeatBookingService {
     }
 
 
-
-
-
-
     @Override
     public SeatBookingResponseDTO create(SeatBookingRequestDTO dto) {
         try {
@@ -54,7 +49,7 @@ public class SeatBookingServiceImpl implements SeatBookingService {
                     .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + dto.getEmployeeId()));
 
 
-            LocalDateTime requestedDateTime = dto.getAllocationDate() != null ? dto.getAllocationDate() : LocalDateTime.now();
+            LocalDateTime requestedDateTime = dto.getSeatBookingDate() != null ? dto.getSeatBookingDate() : LocalDateTime.now();
             LocalDate requestedDate = requestedDateTime.toLocalDate();
             LocalDateTime startOfDay = requestedDate.atStartOfDay();
             LocalDateTime endOfDay = requestedDate.atTime(LocalTime.MAX);
@@ -124,7 +119,7 @@ public class SeatBookingServiceImpl implements SeatBookingService {
 
 
                     SeatBooking booking = SeatBookingMapper.toEntity(dto, seat, employee);
-                    booking.setAllocationDate(requestedDateTime);
+                    booking.setSeatBookingDate(requestedDateTime);
                     seatBookingRepo.save(booking);
 
                     seat.setSeatStatus(Seat.SeatStatus.ALLOCATED);
@@ -145,7 +140,7 @@ public class SeatBookingServiceImpl implements SeatBookingService {
                 }
 
                 SeatBooking booking = SeatBookingMapper.toEntity(dto, seat, employee);
-                booking.setAllocationDate(requestedDateTime);
+                booking.setSeatBookingDate(requestedDateTime);
                 seatBookingRepo.save(booking);
 
                 seat.setSeatStatus(Seat.SeatStatus.ALLOCATED);
@@ -154,7 +149,8 @@ public class SeatBookingServiceImpl implements SeatBookingService {
                 return SeatBookingMapper.toResponse(booking);
             }
 
-        } catch (InvalidStateException | BookingConflictException | ResourceNotFoundException | BadRequestException ex) {
+        } catch (InvalidStateException | BookingConflictException | ResourceNotFoundException |
+                 BadRequestException ex) {
             throw ex;
         } catch (DataAccessException ex) {
             throw new DatabaseException("Database operation failed: " + ex.getMessage());

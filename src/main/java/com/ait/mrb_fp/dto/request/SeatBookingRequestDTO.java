@@ -1,8 +1,8 @@
 package com.ait.mrb_fp.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,9 +11,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class SeatBookingRequestDTO {
-    private String bookingId;
+
+    @NotBlank(message = "Seat id required")
     private String seatId;
+
+    @NotBlank(message = "Employee id required")
     private String employeeId;
-    private LocalDateTime allocationDate;
+
+    private LocalDateTime seatBookingDate;
     private String status;
 }

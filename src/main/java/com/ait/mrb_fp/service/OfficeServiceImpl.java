@@ -8,7 +8,6 @@ import com.ait.mrb_fp.mapper.OfficeMapper;
 import com.ait.mrb_fp.repository.OfficeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;

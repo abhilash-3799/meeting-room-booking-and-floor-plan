@@ -69,14 +69,14 @@ public class SeatBookingMapper {
         booking.setEmployee(employee);
 
 
-        booking.setAllocationDate(LocalDateTime.now());
+        booking.setSeatBookingDate(LocalDateTime.now());
 
 
         booking.setStatus(SeatBooking.BookingStatus.valueOf(dto.getStatus()));
         booking.setActive(true);
 
 
-        booking.setAllocationId("BK" + System.currentTimeMillis());
+        booking.setSeatBookingId("BK" + System.currentTimeMillis());
 
         return booking;
     }
@@ -86,12 +86,12 @@ public class SeatBookingMapper {
         if (booking == null) return null;
 
         return SeatBookingResponseDTO.builder()
-                .allocationId(booking.getAllocationId())
+                .allocationId(booking.getSeatBookingId())
                 .seatNumber(booking.getSeat() != null ? booking.getSeat().getSeatNumber() : null)
                 .employeeName(booking.getEmployee() != null
                         ? booking.getEmployee().getFirstName() + " " + booking.getEmployee().getLastName()
                         : null)
-                .allocationDate(booking.getAllocationDate())
+                .allocationDate(booking.getSeatBookingDate())
                 .status(booking.getStatus() != null ? booking.getStatus().name() : null)
                 .isActive(booking.isActive())
                 .build();
@@ -104,8 +104,8 @@ public class SeatBookingMapper {
         existing.setStatus(SeatBooking.BookingStatus.valueOf(dto.getStatus()));
 
 
-        if (dto.getAllocationDate() != null) {
-            existing.setAllocationDate(dto.getAllocationDate());
+        if (dto.getSeatBookingDate() != null) {
+            existing.setSeatBookingDate(dto.getSeatBookingDate());
         }
     }
 }

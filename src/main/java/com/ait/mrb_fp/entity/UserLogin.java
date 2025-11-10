@@ -37,14 +37,14 @@ public class UserLogin {
     @Column(nullable = false)
     private boolean isActive = true;
 
-    public enum Role {
-        employee, admin, team_lead
-    }
-
     @PrePersist
     public void generateId() {
         if (this.loginId == null) {
             this.loginId = "LOGIN-" + UUID.randomUUID().toString().substring(0, 4);
         }
+    }
+
+    public enum Role {
+        employee, admin, team_lead
     }
 }

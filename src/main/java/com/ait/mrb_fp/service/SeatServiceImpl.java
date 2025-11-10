@@ -2,11 +2,16 @@ package com.ait.mrb_fp.service;
 
 import com.ait.mrb_fp.dto.request.SeatRequestDTO;
 import com.ait.mrb_fp.dto.response.SeatResponseDTO;
-import com.ait.mrb_fp.entity.*;
+import com.ait.mrb_fp.entity.Office;
+import com.ait.mrb_fp.entity.Queue;
+import com.ait.mrb_fp.entity.Seat;
+import com.ait.mrb_fp.entity.Team;
 import com.ait.mrb_fp.exception.ResourceNotFoundException;
 import com.ait.mrb_fp.mapper.SeatMapper;
-import com.ait.mrb_fp.repository.*;
-import com.ait.mrb_fp.service.SeatService;
+import com.ait.mrb_fp.repository.OfficeRepository;
+import com.ait.mrb_fp.repository.QueueRepository;
+import com.ait.mrb_fp.repository.SeatRepository;
+import com.ait.mrb_fp.repository.TeamRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

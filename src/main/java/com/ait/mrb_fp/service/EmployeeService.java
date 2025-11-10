@@ -9,9 +9,13 @@ public interface EmployeeService {
 
 
     EmployeeResponseDTO createEmployee(EmployeeRequestDTO dto);
+
     EmployeeResponseDTO getEmployeeById(String employeeId);
+
     List<EmployeeResponseDTO> getAllEmployees();
+
     EmployeeResponseDTO updateEmployee(String employeeId, EmployeeRequestDTO dto);
+
     void deactivateEmployee(String employeeId);
 
 

@@ -1,8 +1,9 @@
 package com.ait.mrb_fp.entity;
 
 import jakarta.persistence.*;
-        import lombok.*;
-        import java.time.LocalDateTime;
+import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -18,14 +19,7 @@ public class SeatBooking {
 
     @Id
     @Column(length = 45, nullable = false)
-    private String allocationId;
-    @PrePersist
-    public void generateId() {
-        if (this.allocationId == null || this.allocationId.isBlank()) {
-
-            this.allocationId= "SB-" + UUID.randomUUID().toString().substring(0, 4);
-        }
-    }
+    private String seatBookingId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id", nullable = false)
@@ -36,7 +30,7 @@ public class SeatBooking {
     private Employee employee;
 
     @Column(nullable = false)
-    private LocalDateTime allocationDate;
+    private LocalDateTime seatBookingDate;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
@@ -44,6 +38,14 @@ public class SeatBooking {
 
     @Column(nullable = false)
     private boolean isActive = true;
+
+    @PrePersist
+    public void generateId() {
+        if (this.seatBookingId == null || this.seatBookingId.isBlank()) {
+
+            this.seatBookingId = "SB-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     public enum BookingStatus {
         ALLOCATED, RELEASED

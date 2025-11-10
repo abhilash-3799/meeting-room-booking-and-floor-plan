@@ -7,7 +7,6 @@ import com.ait.mrb_fp.entity.Office;
 import com.ait.mrb_fp.mapper.MeetingRoomMapper;
 import com.ait.mrb_fp.repository.MeetingRoomRepository;
 import com.ait.mrb_fp.repository.OfficeRepository;
-import com.ait.mrb_fp.service.MeetingRoomService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

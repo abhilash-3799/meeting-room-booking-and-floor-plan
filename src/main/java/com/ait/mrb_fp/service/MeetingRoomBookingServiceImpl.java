@@ -2,16 +2,13 @@ package com.ait.mrb_fp.service;
 
 import com.ait.mrb_fp.dto.request.MeetingRoomBookingRequestDTO;
 import com.ait.mrb_fp.dto.response.MeetingRoomBookingResponseDTO;
-import com.ait.mrb_fp.entity.MeetingRoomBooking;
-import com.ait.mrb_fp.entity.MeetingRoom;
 import com.ait.mrb_fp.entity.Employee;
-import com.ait.mrb_fp.entity.Seat;
-import com.ait.mrb_fp.exception.BadRequestException;
+import com.ait.mrb_fp.entity.MeetingRoom;
+import com.ait.mrb_fp.entity.MeetingRoomBooking;
 import com.ait.mrb_fp.mapper.MeetingRoomBookingMapper;
+import com.ait.mrb_fp.repository.EmployeeRepository;
 import com.ait.mrb_fp.repository.MeetingRoomBookingRepository;
 import com.ait.mrb_fp.repository.MeetingRoomRepository;
-import com.ait.mrb_fp.repository.EmployeeRepository;
-import com.ait.mrb_fp.service.MeetingRoomBookingService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,7 +44,6 @@ public class MeetingRoomBookingServiceImpl implements MeetingRoomBookingService 
                 .orElseThrow(() -> new RuntimeException("Meeting booking not found: " + id));
         return MeetingRoomBookingMapper.toResponse(booking);
     }
-
 
 
     @Override
@@ -100,7 +96,6 @@ public class MeetingRoomBookingServiceImpl implements MeetingRoomBookingService 
 
         return MeetingRoomBookingMapper.toResponse(booking);
     }
-
 
 
     public MeetingRoomBookingResponseDTO update(String id, MeetingRoomBookingRequestDTO request) {

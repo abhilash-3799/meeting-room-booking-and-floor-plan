@@ -19,13 +19,6 @@ public class Seat {
     @Id
     @Column(length = 45, nullable = false)
     private String seatId;
-    @PrePersist
-    public void generateId() {
-        if (this.seatId == null || this.seatId.isBlank()) {
-
-            this.seatId= "SEAT-" + UUID.randomUUID().toString().substring(0, 4);
-        }
-    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id", nullable = false)
@@ -51,6 +44,14 @@ public class Seat {
 
     @Column(nullable = false)
     private boolean isActive = true;
+
+    @PrePersist
+    public void generateId() {
+        if (this.seatId == null || this.seatId.isBlank()) {
+
+            this.seatId = "SEAT-" + UUID.randomUUID().toString().substring(0, 4);
+        }
+    }
 
     public enum SeatStatus {
         UNALLOCATED, ALLOCATED

@@ -8,8 +8,8 @@ import com.ait.mrb_fp.exception.ResourceNotFoundException;
 import com.ait.mrb_fp.mapper.QueueMapper;
 import com.ait.mrb_fp.repository.OfficeRepository;
 import com.ait.mrb_fp.repository.QueueRepository;
-import com.ait.mrb_fp.service.QueueService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +29,6 @@ public class QueueServiceImpl implements QueueService {
         Office office = officeRepo.findById(dto.getOfficeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Office not found"));
         Queue queue = QueueMapper.toEntity(dto, office);
-
 
 
         queueRepo.save(queue);

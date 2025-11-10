@@ -75,7 +75,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-
     @Override
     public EmployeeResponseDTO getEmployeeById(String employeeId) {
         if (employeeId == null || employeeId.isBlank())
@@ -102,7 +101,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-
     @Override
     public EmployeeResponseDTO updateEmployee(String employeeId, EmployeeRequestDTO dto) {
         if (employeeId == null || employeeId.isBlank()) {
@@ -111,7 +109,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee existing = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + employeeId));
-
 
 
         Employee duplicate = employeeRepository.findByEmail(dto.getEmail());
@@ -127,10 +124,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> new ResourceNotFoundException("Office not found with ID: " + dto.getOfficeId()));
 
 
-
         EmployeeMapper.updateEntity(existing, dto, team, office);
-
-
 
 
         existing.setEmployeeId(employeeId);
@@ -138,8 +132,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(existing);
         return EmployeeMapper.toResponse(existing);
     }
-
-
 
 
     @Override
